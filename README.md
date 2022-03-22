@@ -1,3 +1,3 @@
 # Hackathon
 
-Jack, Chad, Blake Anar
+Jack, Chad, Blake, Anar
