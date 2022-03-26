@@ -162,7 +162,7 @@ if __name__ == "__main__":
                         #Proposals
                         #Focus Groups
                         ]
-
+    # Menu images
     menuBgImg =  pygame.image.load("resources/deskJonkers.jpg")
     menuBgImg =  pygame.transform.scale(menuBgImg, (width, height))
     playImg =    pygame.image.load("resources/play.png")
@@ -179,14 +179,29 @@ if __name__ == "__main__":
     exitImgHovered =    pygame.image.load("resources/exitHovered.png")
     exitImgHovered =    pygame.transform.scale(exitImgHovered, (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)))
 
+    # choice page images
+
+    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
+    choiceImages = []
+    for n in choiceImgNames:
+        tempImg = pygame.image.load(n[0])
+        tempImg = pygame.transform.scale(tempImg, (width, height))
+        choiceImages.append(tempImg)
+    
+
     menuSprites =  [guiClasses.sprite(menuBgImg,  (0,0),                    (width, height),                                                               "menuBgImg"),
                     guiClasses.sprite(playImg,    (1*width/2, 2*height/12), (int(height/6*playImg.get_width()/playImg.get_height()), int(height/6)),       "playImg"),
                     guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg"),
                     guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg")]
 
-    choiceSprites = [ # the sprites that get displayed in game state 4
+    # game over sprites and images
+    gameOverImg = pygame.image.load("resources/gameOver.jpeg")
+    gameOverImg = pygame.transform.scale(gameOverImg, (0, 0), (width, height))
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height, "gameOverImg"))]
 
-    ]
+    choiceSprites = []
+    for i in range(len(choiceImages)):
+        pass
 
     clickedSprites = []
     hoveredSprites = []
@@ -209,8 +224,8 @@ if __name__ == "__main__":
         #2 is menu/start screen
         #3 is main game screen
         #4 is map scene
-    gameState = 2 #Technicaly should start with 2
-    gameVisuals = [None, None, menuSprites, mainGameSprites, choiceSprites, None]
+    gameState = 1 #Technicaly should start with 2
+    gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
     while gameState:
