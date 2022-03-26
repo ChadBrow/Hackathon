@@ -1,8 +1,13 @@
 
+############## OBSOLETE ##############
+
+
+
 import json, random
 
 # import the data
 from data import * # import all the variables from data.py
+# from classes import *
 from main import chosenOption
 
 # global variables

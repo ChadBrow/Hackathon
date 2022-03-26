@@ -1,13 +1,14 @@
-import classes as c
+
+from classes import FocusGroup, Choice, Event, Request, Costs
 
 FOCUS_GROUPS = {
-    "students": c.FocusGroup("exit.png", 0.5, 0.5),
-    "faculty": c.FocusGroup("exit.png", 0.5, 0.5),
-    "donors": c.FocusGroup("exit.png", 0.5, 0.5),
-    "fans": c.FocusGroup("exit.png", 0.5, 0.5)
+    "students": FocusGroup("exit.png", 0.5, 0.5),
+    "faculty": FocusGroup("exit.png", 0.5, 0.5),
+    "donors": FocusGroup("exit.png", 0.5, 0.5),
+    "fans": FocusGroup("exit.png", 0.5, 0.5)
 }
 
-costs = c.Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly cost data Jack found online
+costs = Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly cost data Jack found online
 
 # moneySinks = {
 #     "clubs" : c.MoneySink(
@@ -20,7 +21,7 @@ costs = c.Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly 
 # }
 
 studentRequests = [
-    c.Request(
+    Request(
         title = "Increased Club Support",
         body = "The student body wants Notre Dame to increase its club support and spending.\nCost: 5M\nEffects:\n  - Increase student happiness target by 10%%.\n  - Decrease faculty happiness target by 5%%\n  - Increase monthly spending on student groups by 2M",
         effects = [[FOCUS_GROUPS["students"].modApprovalTarget, 0.1], [FOCUS_GROUPS["faculty"].modApprovalTarget, -0.05], [costs.modStudentGroups, 2]],
@@ -29,7 +30,7 @@ studentRequests = [
 ]
 
 facultyRequests = [
-    c.Request(
+    Request(
         title = "More Research Grants",
         body = "The faculty want Notre Dame to increase the amount of research grants that it gives.\nCost: 10M\nEffects:\n - Increase facultry happiness target by 10%%.\n  - Increase student happiness target by 5%%\n  - Decrease donor happiness target by 5%%\n  - Increase monthly spending on research by 4M",
         effects = [[FOCUS_GROUPS["faculty"].modApprovalTarget, 0.1], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05], [FOCUS_GROUPS["donors"].modApprovalTarget, -0.05], costs.modResearch, 4],
@@ -37,18 +38,35 @@ facultyRequests = [
     )
 ]
 
-RANDOM_EVENTS = [
-    c.Event(
-        title = "Students Ask for Increased Club Spending",
+randomEvents = [
+    Event(
+        title = "Students Ask for Spring CLub Fair",
         image = "deskJonkers.jpg",
-        body = "Many students have requested an increase to Notre Dame's club funding budget. Student body president Pat Li has brought a petition for increased club spending to Father Jonkins. After much deliberation, Father Jonkins decided to . . .",
+        body = "Many students have requested an additional club fair be held at the beginning of the spring semester. Student body president Pat Li has brought a petition to hold the event to Father Jonkins. After much deliberation, Father Jonkins decided to . . .",
         choices = [
-            c.Choice(
-                title = "Raise Club Spending",
+            Choice(
+                title = "Hold the Event",
                 body = "Increase cost of club spending by 2M\nIncrease student happiness target by 5%%.",
                 effects = [[costs.modStudentGroups, 20], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
             ),
-            c.Choice(
+            Choice(
+                title = "Reject the Proposal",
+                body = "Decrease student happiness by 5%",
+                effects = [[FOCUS_GROUPS['students'].modApproval, -0.05]]
+            )
+        ]
+    ),
+    Event(
+        title = "Bond Hall Toilet Explosion",
+        image = "deskJonkers.jpg",
+        body = "",
+        choices = [
+            Choice(
+                title = "Hold the Event",
+                body = "Increase cost of club spending by 2M\nIncrease student happiness target by 5%%.",
+                effects = [[costs.modStudentGroups, 20], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
+            ),
+            Choice(
                 title = "Reject the Proposal",
                 body = "Decrease student happiness by 5%",
                 effects = [[FOCUS_GROUPS['students'].modApproval, -0.05]]
