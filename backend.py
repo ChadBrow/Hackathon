@@ -52,8 +52,10 @@ def tick():
     
     savings = savings - spentAmmount + revenue()
 
-
-
-
-
-
+def calcIncome():
+    #calculates monthly income
+    tuition = 60 * FOCUS_GROUPS["students"].performance        #30/month at start on medium
+    grants = 40 * FOCUS_GROUPS["faculty"].performance          #20/month at start on medium
+    donations = 120 * FOCUS_GROUPS["donors"].performance * FOCUS_GROUPS["donors"].approval     #30/month at start on medium
+    endowment = 0.05 * savings     #20/month at start on medium
+    events = 20         #20/month at start on medium
