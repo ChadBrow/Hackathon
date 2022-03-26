@@ -10,5 +10,5 @@ maybe  ``django``
 - https://www.djangoproject.com/start/
 - https://www.djangoproject.com
 
-``
+
 ``sudo python3 -m pip install Django``
