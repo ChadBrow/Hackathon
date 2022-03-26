@@ -1,35 +1,167 @@
-import pygame
+import pygame, random
 import guiFunctions, guiClasses
-import classes
+
+from classes import *
+from data import *
+# from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
+#import classes
+#from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
+
+############## PYGAME ##############
 
 pygame.init()
+fontSize = 16
 
-width = 960
-height = 540
+############## CONSTANTS ##############
+
+chosenOption = None # the variable that backend.py will look for
+chosenEvent = None
+
+width = 1600
+height = 900
 fps = 60
 
-bgcolor = (0, 0, 0)
-fgcolor = (255, 255, 255)
+bgcolor = (12, 23, 40) #blue
+bgcolorHovered = (6, 12, 20) #darker blue
+fgcolor = (201, 97, 0) #gold
+
+tuition = 1000 # just a random constant.
+eventChance = 50 # number between 1 and 100
+savings = 1000 # total savings
+recommendedBudget = 1000 # how much you can spend without dipping into your savings
+spentAmmount = 0
+
+mainStats = {
+    "performance": 0,
+    "approval": 0,
+    "budget": 0
+}
+
+
+############### FUNCTIONS ###############
+
+def enactEvent(event, choice):
+    e = event.choices[choice].effects
+    for i in e:
+        i[0](i[1]) # I hate how gross this process is. It must be done
+    
+def revenue():
+
+    return 0 # make this something useful
+def pushEvent(event):
+    # I dont know how to do this right now, but we need to send this event to anar
+    # maybe just have him check for the current event, but still want the placeholder
+    return event
+    
+def guiChoice():
+    return chosenOption
+
+def tick():
+    # Chad's code: (best code)
+    # calculate balance for next month
+    balance = calcIncome() - costs.total()
+
+    # Update FOCUS_GROUPS
+    #Donor approval target is equal to average of the academic level and budget balance
+    avgCampusPerformance = (FOCUS_GROUPS["students"].performance + FOCUS_GROUPS["faculty"].performance) / 2
+    targetHappiness = (avgCampusPerformance + 0.5 * balance / 20) / 2
+    FOCUS_GROUPS["donors"].modApprovalTarget(targetHappiness - FOCUS_GROUPS["donors"].approvalTarget) 
+    FOCUS_GROUPS["donors"].updateApproval()
+
+    #fan approval target is equal to campus happiness
+    avgCampusHappiness = (FOCUS_GROUPS["students"].approval + FOCUS_GROUPS["faculty"].approval) / 2
+    FOCUS_GROUPS["fans"].modApprovalTarget(avgCampusHappiness - FOCUS_GROUPS["fans"].approvalTarget)
+    FOCUS_GROUPS["fans"].updateApproval()
+
+    #student and faculty performance wanna go to student and faculty approval
+    #update student and faculty approval then set student and faculty performance target equal to new approval then update performance
+    FOCUS_GROUPS["students"].updateApproval()
+    FOCUS_GROUPS["faculty"].updateApproval()
+
+    FOCUS_GROUPS["students"].modPerformanceTarget(FOCUS_GROUPS["students"].approval - FOCUS_GROUPS["students"].performanceTarget)
+    FOCUS_GROUPS["faculty"].modPerformanceTarget(FOCUS_GROUPS["faculty"].approval - FOCUS_GROUPS["faculty"].performanceTarget)
+
+    FOCUS_GROUPS["students"].updatePerformance()
+    FOCUS_GROUPS["faculty"].updatePerformance()
+
+    for c in FOCUS_GROUPS:
+        FOCUS_GROUPS[c].update()
+
+
+    
+    # check for events
+    chanceOfEvent = random.randint(1, 100)
+    event = None
+    if chanceOfEvent >= eventChance:
+        e = random.randint(0, len(randomEvents)-1)
+        event = randomEvents[e] # pass this event to anar's front-end
+        chosenEvent = pushEvent(event) # placeholder function for passing the event to anar
+    choice = guiChoice() # this is a placeholder for the choice passed back by anar's gui
+    enactEvent(chosenEvent, choice) # this is a placeholder function for however we want to do this
+
+    # update savings
+    vars["savings"] = vars["savings"] - spentAmmount + calcIncome()
+
+def calcIncome():
+    #calculates monthly income
+    tuition = 60 * FOCUS_GROUPS["students"].performance        #30/month at start on medium
+    grants = 40 * FOCUS_GROUPS["faculty"].performance          #20/month at start on medium
+    donations = 120 * FOCUS_GROUPS["donors"].performance * FOCUS_GROUPS["donors"].approval     #30/month at start on medium
+    endowment = 0.1 * savings                                  #20/month at start on medium
+    events = 40 * FOCUS_GROUPS["fans"].approval                #20/month at start on medium
+
+    return tuition + grants + donations + endowment + events
+
+
+
+
+
+
+
+
+
+
+
+
+
+#################### GAME ######################
 if __name__ == "__main__":
+
     window = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Our Dame")
     gameIcon = pygame.image.load("resources/deskJonkers.gif")
     pygame.display.set_icon(gameIcon)
 
-
-
+    keyPress = pygame.mixer.Sound("resources/keypress.wav")
+    intro = pygame.mixer.Sound("resources/NDvictor.wav")
+    intro.play()
     clock = pygame.time.Clock()
 
 
     #We should define a sprite class and all the types of stuff we have on the screen are subclasses of sprite
-    officeImg =  pygame.image.load("resources/desk.jpg")
+    officeImg =  pygame.image.load("resources/johnjonkinsathisdest.jpg")
     officeImg =  pygame.transform.scale(officeImg, (width, height))
     menuImg =    pygame.image.load("resources/menu.png")
     menuImg =    pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
+    grampyImg =  pygame.image.load("resources/clocky.jpg")
+    grampyImg =  pygame.transform.scale(grampyImg, (185, 253))
+    cabinetImg = pygame.image.load("resources/cabinot.jpg")
+    cabinetImg = pygame.transform.scale(cabinetImg, (cabinetImg.get_width(), cabinetImg.get_height()))
+    globeImg = pygame.image.load("resources/globe.jpg")
+    globeImg = pygame.transform.scale(globeImg, (globeImg.get_width(), globeImg.get_height()))
 
 
-    mainGameSprites =  [guiClasses.sprite(officeImg,  (0, 0),                             (width, height),                "officeImg"),
-                        guiClasses.sprite(menuImg,    (0, 0),                             (int(width/12), int(width/12)), "menuImg"),]
+    mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0),                             (width, height),                                                     "officeImg"),
+                        guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
+                        #Top bar info
+                        #Desk junk
+                        guiClasses.sprite(grampyImg, (1270,160), (grampyImg.get_width(), grampyImg.get_height()), "grampyImg", show = False),
+                        guiClasses.sprite(cabinetImg, (160, 180), (cabinetImg.get_width(), cabinetImg.get_height()), "cabinetImg", show = False),
+                        guiClasses.sprite(globeImg,   (1240, 500), (globeImg.get_width(), globeImg.get_height()), "globeImg", show = False)
+                        #guiClasses.sprite()
+                        #Proposals
+                        #Focus Groups
+                        ]
 
     menuBgImg =  pygame.image.load("resources/deskJonkers.jpg")
     menuBgImg =  pygame.transform.scale(menuBgImg, (width, height))
@@ -52,16 +184,23 @@ if __name__ == "__main__":
                     guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg"),
                     guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg")]
 
-    mapImg =  pygame.image.load("resources/map.jpg")
-    mapImg =  pygame.transform.scale(mapImg, (width, height))
-    backImg = pygame.image.load("resources/back.png")
-    backImg = pygame.transform.scale(backImg, (int(width/12), int(height/12)))
+    choiceSprites = [ # the sprites that get displayed in game state 4
 
-    mapSprites =   [guiClasses.sprite(mapImg,  (0, 0), (width, height),                "mapImg"),
-                    guiClasses.sprite(backImg, (0, 0), (int(width/12), int(width/12)), "backImg")]
+    ]
 
     clickedSprites = []
     hoveredSprites = []
+    
+    ### Pygame is stupid and my head hurts
+
+    font = pygame.font.Font("resources/pressStart2P.ttf", fontSize)
+    
+    # colors
+    # r, g, b
+    textColor = (230, 230, 230) # change this
+    GREEN = (50, 250, 50) # change this
+    DARK = (40, 40, 50)
+    
 
     #Alright, boys pay attention
     #Game state is teeling what scene to load and how the gui will interact with the user.
@@ -71,8 +210,8 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
     gameState = 2 #Technicaly should start with 2
-    gameVisuals = [None, None, menuSprites, mainGameSprites, mapSprites, None]
-
+    gameVisuals = [None, None, menuSprites, mainGameSprites, choiceSprites, None]
+    requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
     while gameState:
         window.fill(bgcolor)
@@ -86,6 +225,7 @@ if __name__ == "__main__":
                 for theSprite in gameVisuals[gameState]:
                     if theSprite.detectCollision(pos):
                         clickedSprites.append(theSprite.name)
+                        keyPress.play()
                 #Do something with the clicked sprites
 
         for theSprite in gameVisuals[gameState]:
@@ -94,8 +234,11 @@ if __name__ == "__main__":
 
 
         for surface in gameVisuals[gameState]:
-            window.blit(surface.image, surface.position)
-
+            if str(type(surface)) == "<class 'guiClasses.sprite'>":
+                if surface.show:
+                    window.blit(surface.image, surface.position)
+            elif str(type(surface)) == "<class 'guiClasses.text'>":
+                window.blit(surface.text, surface.textRect)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
@@ -114,14 +257,80 @@ if __name__ == "__main__":
                         window.blit(optionsImgHovered, display.position)
                     elif display.name == item and display.name == "exitImg":
                         window.blit(exitImgHovered, display.position)
-
         elif gameState == 3: #Main office scene
             for item in clickedSprites:
                 if item == "menuImg":
                     gameState = 2
-                elif item == "":
-                    pass
-        elif gameState == 4: #scene
+                elif item == "grampyImg":
+                    print("ticking")
+                    tick()
+                elif item == "cabinetImg":
+                    gameState = 4
+                    print("cabinet")
+                elif item == "globeImg":
+                    print("globe")
+                    #Chad function
+        elif gameState == 4: # playing the game
+            # constants
+            border = .005
+
+            # top banner
+            bannerCoords = (
+                0, 0, 
+                width, height/10
+            )
+            pygame.draw.rect(window, DARK, bannerCoords)
+
+            t = "$" + str(mainStats['budget'])
+            headerText = font.render(t, True, textColor)   
+            sustainScore = .5 # between zero and one
+            sustainCoords = ( # x, y, width, height
+                0 + width * .01, 0 + height * .01,
+                ((width*sustainScore) * .09), height/20 
+            )       
+            pygame.draw.rect(window, GREEN, sustainCoords)
+
+            ### Middle boxes for choices
+
+            midBoxes = [
+                (width * (1-(border*2))) / len(requestGroups),
+                height * .5
+            ]
+            for i in range(len(requestGroups)):
+                tempCoords = (
+                    (width * border * (i)) + (midBoxes[0] * i), height * .15,
+                    midBoxes[0], midBoxes[1]
+                )
+                pygame.draw.rect(window, DARK, tempCoords)
+                
+                # its all text
+                # display the text here, but I dont wanna right now
+
+            ### Bottom info bar with each focus group
+
+            """
+            (.05 * )
+
+
+            """
+            sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
+            sectionHeight = height * .30
+            for i in range(len(FOCUS_GROUPS)): # the background box
+                tempCoords = (
+                    (width * border * (i)) + (sectionSize * i), height * .7, 
+                    sectionSize, sectionHeight
+                )
+                pygame.draw.rect(window, DARK, tempCoords) # draw the background box
+
+                # draw the status bars
+
+
+
+            
+            for group in FOCUS_GROUPS:
+                FOCUS_GROUPS[group]
+
+
             pass
         elif gameState == 5: #Options scene
             pass
