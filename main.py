@@ -232,7 +232,7 @@ if __name__ == "__main__":
         #2 is menu/start screen
         #3 is main game screen
         #4 is map scene
-    gameState = 1 #Technicaly should start with 2
+    gameState = 4 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
@@ -346,6 +346,14 @@ if __name__ == "__main__":
                 pygame.draw.rect(window, DARK, tempCoords) # draw the background box
 
                 # draw the status bars
+                barCoords = (
+                    tempCoords[0] + (sectionSize * .8), 
+                    tempCoords[1] + (sectionHeight * .2),
+                    sectionSize * .1,
+                    sectionHeight * .6
+                )
+                pygame.draw.rect(window, GREEN, barCoords)
+                pass
 
 
 
