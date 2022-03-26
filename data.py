@@ -65,7 +65,7 @@ randomEvents = [
             ),
             Choice(
                 title = "Prioritize a Quick Repair",
-                body = "Replace the destroyed toilets",
+                body = "Replace the destroyed toilets with ",
                 effects = [[FOCUS_GROUPS['students'].modApproval, -0.05]]
             )
         ]
