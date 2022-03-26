@@ -1,4 +1,5 @@
 import pygame, random
+from pygame.locals import FULLSCREEN
 import guiFunctions, guiClasses
 
 from classes import *
@@ -125,7 +126,7 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((640,480), FULLSCREEN)
+    window = pygame.display.set_mode((1600,900), FULLSCREEN)
     # get the size of the fullscreen display
     width, height= window.get_size()
 
