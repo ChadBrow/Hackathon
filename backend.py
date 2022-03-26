@@ -28,7 +28,8 @@ def revenue():
 def pushEvent(event):
     # I dont know how to do this right now, but we need to send this event to anar
     # maybe just have him check for the current event, but still want the placeholder
-    pass
+    return event
+    
 def guiChoice():
     return 0
 
