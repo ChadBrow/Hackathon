@@ -143,7 +143,8 @@ if __name__ == "__main__":
     mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0), (width, height),                "officeImg"),
                         guiClasses.sprite(menuImg,   (0, 0), (int(width/12), int(width/12)), "menuImg"),
                         #Top bar info
-                        guiClasses.text("Hello", (width//2, height//2), (width//2, height//2))
+                        guiClasses.sprite(, (0,0),)
+                        #guiClasses.text("Hello", (width//2, height//2), (width//2, height//2))
                         #Proposals
                         #Focus Groups
                         ]
@@ -169,13 +170,6 @@ if __name__ == "__main__":
                     guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg"),
                     guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg")]
 
-    mapImg =  pygame.image.load("resources/map.jpg")
-    mapImg =  pygame.transform.scale(mapImg, (width, height))
-    backImg = pygame.image.load("resources/back.png")
-    backImg = pygame.transform.scale(backImg, (int(width/12), int(height/12)))
-
-    mapSprites =   [guiClasses.sprite(mapImg,  (0, 0), (width, height),                "mapImg"),
-                    guiClasses.sprite(backImg, (0, 0), (int(width/12), int(width/12)), "backImg")]
 
     clickedSprites = []
     hoveredSprites = []
@@ -188,7 +182,7 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
     gameState = 2 #Technicaly should start with 2
-    gameVisuals = [None, None, menuSprites, mainGameSprites, mapSprites, None]
+    gameVisuals = [None, None, menuSprites, mainGameSprites, None, None]
 
 
     while gameState:
@@ -214,7 +208,7 @@ if __name__ == "__main__":
             if str(type(surface)) == "<class 'guiClasses.sprite'>":
                 window.blit(surface.image, surface.position)
             elif str(type(surface)) == "<class 'guiClasses.text'":
-                window.blit(surface.text, surface.position)
+                window.blit(surface.textRect, surface.position)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
@@ -238,8 +232,8 @@ if __name__ == "__main__":
             for item in clickedSprites:
                 if item == "menuImg":
                     gameState = 2
-                elif item == "":
-                    pass
+                elif item == "nextMonthImg":
+                    tick()
         elif gameState == 4: #scene
             pass
         elif gameState == 5: #Options scene

@@ -8,7 +8,7 @@ class FocusGroup: # are we just calling this the money too (where "performance" 
         self.approvalTarget = startApproval
         self.performanceTarget = startPerformance
         self.image = pygame.image.load("resources/" + image)
-        self.image = pygame.transform.scale(self.image, (width/5, width/5))
+        self.image = pygame.transform.scale(self.image, (width//5, width//5))
     
     
     def modApproval(self, var):
@@ -45,7 +45,7 @@ class Event:
     def __init__(self, title, image, body, choices):
         self.title = title
         self.image = pygame.image.load("resources/" + image)
-        self.image = pygame.transform.scale(self.image, (width/5, width/5))
+        self.image = pygame.transform.scale(self.image, (width//5, width//5))
         self.body = body
         self.choices = choices
 
