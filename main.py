@@ -145,14 +145,17 @@ if __name__ == "__main__":
     menuImg =   pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
     grampyImg = pygame.image.load("resources/grampyclock.png")
     grampyImg = pygame.transform.scale(grampyImg, (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2))
-
+    #bookImg =   pygame.image.load("resources/book.png")
+    #bookImg =   pygame.transform.scale(bookImg, (height))
 
     #window.blit(text, textRect)
 
     mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0),                             (width, height),                                                     "officeImg"),
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
-                        guiClasses.sprite(grampyImg, (width - grampyImg.get_width(), 0), (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2, "grampyImg"))
+                        #Desk junk
+                        guiClasses.sprite(grampyImg, (width - grampyImg.get_width(), 0), (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2), "grampyImg")
+                        #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
                         ]
