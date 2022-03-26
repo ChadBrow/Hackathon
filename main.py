@@ -143,21 +143,22 @@ if __name__ == "__main__":
     officeImg =  pygame.transform.scale(officeImg, (width, height))
     menuImg =    pygame.image.load("resources/menu.png")
     menuImg =    pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
+    
     grampyImg =  pygame.image.load("resources/clocky.jpg")
-    grampyImg =  pygame.transform.scale(grampyImg, (185, 253))
+    grampyImg =  pygame.transform.scale(grampyImg, (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900))
     cabinetImg = pygame.image.load("resources/cabinot.jpg")
-    cabinetImg = pygame.transform.scale(cabinetImg, (cabinetImg.get_width(), cabinetImg.get_height()))
+    cabinetImg = pygame.transform.scale(cabinetImg, (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900))
     globeImg = pygame.image.load("resources/globe.jpg")
-    globeImg = pygame.transform.scale(globeImg, (globeImg.get_width(), globeImg.get_height()))
+    globeImg = pygame.transform.scale(globeImg, (width*globeImg.get_width()//1600, height*globeImg.get_height()//900))
 
 
     mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0),                             (width, height),                                                     "officeImg"),
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
                         #Desk junk
-                        guiClasses.sprite(grampyImg, (1270,160), (grampyImg.get_width(), grampyImg.get_height()), "grampyImg", show = False),
-                        guiClasses.sprite(cabinetImg, (160, 180), (cabinetImg.get_width(), cabinetImg.get_height()), "cabinetImg", show = False),
-                        guiClasses.sprite(globeImg,   (1240, 500), (globeImg.get_width(), globeImg.get_height()), "globeImg", show = False)
+                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900), "grampyImg", show = False),
+                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900), "cabinetImg", show = False),
+                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (width*globeImg.get_width()//1600, height*globeImg.get_height()//900), "globeImg", show = False)
                         #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
