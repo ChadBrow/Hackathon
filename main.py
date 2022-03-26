@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
     window = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Our Dame")
-    gameIcon = pygame.image.load("resources/deskJonkers.gif")
+    gameIcon = pygame.image.load("resources/globe.jpg")
     pygame.display.set_icon(gameIcon)
 
     keyPress = pygame.mixer.Sound("resources/keypress.wav")
