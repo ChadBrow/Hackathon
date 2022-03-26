@@ -23,10 +23,10 @@ class sprite:
         return False
 class text(sprite):
     def __init__(self, text, position, size, name = None):
-        fgcolor = (0, 0, 0)
-        bgcolor = (255, 255, 255)
-        font = pygame.font.Font("resources/pressStart2P.ttf", 32)
-        self.text = font.render(text, fgcolor, bgcolor)
+        fgcolor = (201, 97, 0)
+        bgcolor = (12, 23, 40)
+        self.font = pygame.font.Font("resources/pressStart2P.ttf", 32)
+        self.text = self.font.render(text, fgcolor, bgcolor)
         self.textRect = self.text.get_rect()
         self.textRect.center = (position[0] - size[0]//2, position[1] - size[1]//2)
         self.position = position

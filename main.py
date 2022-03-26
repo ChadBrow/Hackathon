@@ -20,8 +20,9 @@ width = 960
 height = 540
 fps = 60
 
-bgcolor = (0, 0, 0)
-fgcolor = (255, 255, 255)
+bgcolor = (12, 23, 40) #blue
+bgcolorHovered = (6, 12, 20) #darker blue
+fgcolor = (201, 97, 0) #gold
 
 tuition = 1000 # just a random constant.
 eventChance = 50 # number between 1 and 100
@@ -143,8 +144,7 @@ if __name__ == "__main__":
     mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0), (width, height),                "officeImg"),
                         guiClasses.sprite(menuImg,   (0, 0), (int(width/12), int(width/12)), "menuImg"),
                         #Top bar info
-                        guiClasses.sprite(, (0,0),)
-                        #guiClasses.text("Hello", (width//2, height//2), (width//2, height//2))
+                        guiClasses.text("Hello", (width//2, height//2), (width//2, height//2))
                         #Proposals
                         #Focus Groups
                         ]
@@ -205,10 +205,11 @@ if __name__ == "__main__":
 
 
         for surface in gameVisuals[gameState]:
+            print(type(surface))
             if str(type(surface)) == "<class 'guiClasses.sprite'>":
                 window.blit(surface.image, surface.position)
-            elif str(type(surface)) == "<class 'guiClasses.text'":
-                window.blit(surface.textRect, surface.position)
+            elif str(type(surface)) == "<class 'guiClasses.text'>":
+                window.blit(surface.text, surface.textRect)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
