@@ -227,7 +227,7 @@ if __name__ == "__main__":
         #2 is menu/start screen
         #3 is main game screen
         #4 is map scene
-    gameState = 4 #Technicaly should start with 2
+    gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
