@@ -17,7 +17,12 @@ mainStats = {
     "approval": 0,
     "budget": 0
 }
-def revenue(event, ):
+def enactEvent(event, choice):
+    e = event.choice[choice].effects
+    for i in e:
+        i[0](i[1]) # I hate how gross this process is
+    
+def revenue():
 
     return 0 # make this something useful
 def pushEvent(event):
@@ -35,12 +40,13 @@ def tick():
 
     # check for events
     chanceOfEvent = random.randint(1, 100)
+    event = None
     if chanceOfEvent >= eventChance:
         e = random.randint(0, len(RANDOM_EVENTS)-1)
         event = RANDOM_EVENTS[e] # pass this event to anar's front-end
-        pushEvent(event)
-    choice = guiChoice()
-    
+        pushEvent(event) # placeholder function for passing the event to anar
+    choice = guiChoice() # this is a placeholder for the choice passed back by anar's gui
+    enactEvent(event, choice) # this is a placeholder function for however we want to do this
 
     # update budget
     
