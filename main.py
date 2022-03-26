@@ -178,6 +178,9 @@ if __name__ == "__main__":
                     guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg"),
                     guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg")]
 
+    choiceSprites = [ # the sprites that get displayed in game state 4
+
+    ]
 
     clickedSprites = []
     hoveredSprites = []
@@ -187,10 +190,10 @@ if __name__ == "__main__":
     font = pygame.font.Font("resources/pressStart2P.ttf", fontSize)
     
     # colors
-
+    # r, g, b
     textColor = (230, 230, 230) # change this
     GREEN = (50, 250, 50) # change this
-    
+    DARK = (40, 40, 50)
     
 
     #Alright, boys pay attention
@@ -201,8 +204,8 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
     gameState = 4 #Technicaly should start with 2
-    gameVisuals = [None, None, menuSprites, mainGameSprites, None, None]
-
+    gameVisuals = [None, None, menuSprites, mainGameSprites, choiceSprites, None]
+    requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
     while gameState:
         window.fill(bgcolor)
@@ -255,9 +258,65 @@ if __name__ == "__main__":
                 elif item == "nextMonthImg":
                     tick()
         elif gameState == 4: # playing the game
+            # constants
+            border = .005
+
+            # top banner
+            bannerCoords = (
+                0, 0, 
+                width, height/10
+            )
+            pygame.draw.rect(window, DARK, bannerCoords)
+
             t = "$" + str(mainStats['budget'])
-            headerText = font.render(t, True, textColor)            
-            pygame.draw.rect(window, GREEN, (10, 10, 10, 20))
+            headerText = font.render(t, True, textColor)   
+            sustainScore = .5 # between zero and one
+            sustainCoords = ( # x, y, width, height
+                0 + width * .01, 0 + height * .01,
+                ((width*sustainScore) * .09), height/20 
+            )       
+            pygame.draw.rect(window, GREEN, sustainCoords)
+
+            ### Middle boxes for choices
+
+            midBoxes = [
+                (width * (1-(border*2))) / len(requestGroups),
+                height * .5
+            ]
+            for i in range(len(requestGroups)):
+                tempCoords = (
+                    (width * border * (i)) + (midBoxes[0] * i), height * .15,
+                    midBoxes[0], midBoxes[1]
+                )
+                pygame.draw.rect(window, DARK, tempCoords)
+                
+                # its all text
+                # display the text here, but I dont wanna right now
+
+            ### Bottom info bar with each focus group
+
+            """
+            (.05 * )
+
+
+            """
+            sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
+            sectionHeight = height * .30
+            for i in range(len(FOCUS_GROUPS)): # the background box
+                tempCoords = (
+                    (width * border * (i)) + (sectionSize * i), height * .7, 
+                    sectionSize, sectionHeight
+                )
+                pygame.draw.rect(window, DARK, tempCoords) # draw the background box
+
+                # draw the status bars
+
+
+
+            
+            for group in FOCUS_GROUPS:
+                FOCUS_GROUPS[group]
+
 
             pass
         elif gameState == 5: #Options scene
