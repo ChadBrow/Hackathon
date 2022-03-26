@@ -7,27 +7,45 @@ FOCUS_GROUPS = {
     "fans": c.FocusGroup(0.5, 0.5)
 }
 
-moneySinks = {
-    "clubs" : c.MoneySink(
-        effects = [
-            [FOCUS_GROUPS['students'].modApproval, 0.002], 
-            [FOCUS_GROUPS['faculty'].modApproval, -0.002]], 
-            funding=100,
-            maxFunding = 150
-    ) # change these to real data
+costs = c.Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly cost data Jack found online
+
+# moneySinks = {
+#     "clubs" : c.MoneySink(
+#         effects = [
+#             [FOCUS_GROUPS['students'].modApproval, 0.002], 
+#             [FOCUS_GROUPS['faculty'].modApproval, -0.002],
+#             ]
+#     ) # change these to real data
     
-}
+# }
+
+studentRequests = [
+    c.Request(
+        title = "Increased Club Support",
+        body = "The student body wants Notre Dame to increase its club support and spending.\nCost: 5M\nEffects:\n  - Increase student happiness target by 10%%.\n  - Decrease faculty happiness target by 5%%\n  - Increase monthly spending on student groups by 2M",
+        effects = [[FOCUS_GROUPS["students"].modApprovalTarget, 0.1], [FOCUS_GROUPS["faculty"].modApprovalTarget, -0.05], [costs.modStudentGroups, 2]],
+        cost = 5
+    )
+]
+
+facultyRequests = [
+    c.Request(
+        title = "More Research Grants",
+        body = "The faculty want Notre Dame to increase the amount of research grants that it gives.\nCost: 10M\nEffects:\n - Increase facultry happiness target by 10%%.\n  - Increase student happiness target by 5%%\n  - Decrease donor happiness target by 5%%\n  - Increase monthly spending on research by 4M",
+
+    )
+]
 
 RANDOM_EVENTS = [
     c.Event(
         title = "Students Ask for Increased Club Spending",
         image = "deskJonkers.jpg",
         body = "Many students have requested an increase to Notre Dame's club funding budget. Student body president Pat Li has brought a petition for increased club spending to Father Jonkins. After much deliberation, Father Jonkins decided to . . .",
-        choice = [
+        choices = [
             c.Choice(
                 title = "Raise Club Spending",
-                body = "Increase cost of club spending by 25M\nIncrease student happiness by 5%%.",
-                effects = [[moneySinks['clubs'].modFunding, 25], [FOCUS_GROUPS['faculty'].modApproval, 0.025]]
+                body = "Increase cost of club spending by 2M\nIncrease student happiness target by 5%%.",
+                effects = [[costs.modStudentGroups, 20], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
             ),
             c.Choice(
                 title = "Reject the Proposal",

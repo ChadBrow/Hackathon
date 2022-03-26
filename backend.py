@@ -18,9 +18,9 @@ mainStats = {
     "budget": 0
 }
 def enactEvent(event, choice):
-    e = event.choice[choice].effects
+    e = event.choices[choice].effects
     for i in e:
-        i[0](i[1]) # I hate how gross this process is
+        i[0](i[1]) # I hate how gross this process is. It must be done
     
 def revenue():
 
