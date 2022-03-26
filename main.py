@@ -127,6 +127,7 @@ def calcIncome():
 if __name__ == "__main__":
 
     window = pygame.display.set_mode((1600,900), FULLSCREEN)
+    fullscreen = 1
     # get the size of the fullscreen display
     width, height= window.get_size()
 
@@ -214,7 +215,7 @@ if __name__ == "__main__":
     clickedSprites = []
     hoveredSprites = []
     
-    ### Pygame is stupid and my head hurts
+    ### Pygame is stupid and my head hurt #don't be mean to pygame
 
     font = pygame.font.Font("resources/pressStart2P.ttf", fontSize)
     
@@ -232,7 +233,7 @@ if __name__ == "__main__":
         #2 is menu/start screen
         #3 is main game screen
         #4 is map scene
-    gameState = 1 #Technicaly should start with 2
+    gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
@@ -262,6 +263,10 @@ if __name__ == "__main__":
                     window.blit(surface.image, surface.position)
             elif str(type(surface)) == "<class 'guiClasses.text'>":
                 window.blit(surface.text, surface.textRect)
+        
+
+        print(hoveredSprites)
+
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
@@ -269,7 +274,12 @@ if __name__ == "__main__":
                 if item == "playImg":
                     gameState = 3
                 elif item == "optionsImg":
-                    gameState = 5
+                    if fullscreen:
+                        window = pygame.display.set_mode((width, height))
+                        fullscreen = 0
+                    else:
+                        window = pygame.display.set_mode((1600,900), FULLSCREEN)
+                        fullscreen = 1
                 elif item == "exitImg":
                     gameState = 0
             for item in hoveredSprites:
