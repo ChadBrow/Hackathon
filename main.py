@@ -133,7 +133,7 @@ if __name__ == "__main__":
     gameIcon = pygame.image.load("resources/deskJonkers.gif")
     pygame.display.set_icon(gameIcon)
 
-
+    keyPress = pygame.mixer.Sound("resources/keypress.wav")
 
     clock = pygame.time.Clock()
 
@@ -149,10 +149,10 @@ if __name__ == "__main__":
 
     #window.blit(text, textRect)
 
-    mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0), (width, height),                "officeImg"),
-                        guiClasses.sprite(menuImg,   (0, 0), (int(width/12), int(width/12)), "menuImg"),
+    mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0),                             (width, height),                                                     "officeImg"),
+                        guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
-                        guiClasses.sprite(grampyImg, (width - grampyImg.get_width(), 0), (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2))
+                        guiClasses.sprite(grampyImg, (width - grampyImg.get_width(), 0), (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2, "grampyImg"))
                         #Proposals
                         #Focus Groups
                         ]
@@ -200,7 +200,7 @@ if __name__ == "__main__":
         #2 is menu/start screen
         #3 is main game screen
         #4 is map scene
-    gameState = 4 #Technicaly should start with 2
+    gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, None, menuSprites, mainGameSprites, None, None]
 
 
@@ -216,6 +216,7 @@ if __name__ == "__main__":
                 for theSprite in gameVisuals[gameState]:
                     if theSprite.detectCollision(pos):
                         clickedSprites.append(theSprite.name)
+                        keyPress.play()
                 #Do something with the clicked sprites
 
         for theSprite in gameVisuals[gameState]:
@@ -224,11 +225,11 @@ if __name__ == "__main__":
 
 
         for surface in gameVisuals[gameState]:
-            print(type(surface))
             if str(type(surface)) == "<class 'guiClasses.sprite'>":
                 window.blit(surface.image, surface.position)
             elif str(type(surface)) == "<class 'guiClasses.text'>":
                 window.blit(surface.text, surface.textRect)
+        print(clickedSprites)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
@@ -247,12 +248,12 @@ if __name__ == "__main__":
                         window.blit(optionsImgHovered, display.position)
                     elif display.name == item and display.name == "exitImg":
                         window.blit(exitImgHovered, display.position)
-
         elif gameState == 3: #Main office scene
             for item in clickedSprites:
                 if item == "menuImg":
                     gameState = 2
-                elif item == "nextMonthImg":
+                elif item == "grampyImg":
+                    print("ticking")
                     tick()
         elif gameState == 4: # playing the game
             t = "$" + str(mainStats['budget'])
