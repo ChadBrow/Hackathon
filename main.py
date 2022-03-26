@@ -196,8 +196,8 @@ if __name__ == "__main__":
 
     # game over sprites and images
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
-    gameOverImg = pygame.transform.scale(gameOverImg, (0, 0), (width, height))
-    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height, "gameOverImg"))]
+    gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg")]
 
     choiceSprites = []
     for i in range(len(choiceImages)):
