@@ -1,4 +1,5 @@
 import json
+import classes as c
 
 """
 events
@@ -18,6 +19,9 @@ all the big stats:
 
 
 """
+students = c.FocusGroup()
+faculty = c.FocusGroup()
+
 
 mainStats = {
     "performance": 0,
