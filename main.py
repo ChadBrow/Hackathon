@@ -199,9 +199,9 @@ if __name__ == "__main__":
         [(0, 0), (width, height * .1)]
     ]
     choiceImages = []
-    for n in choiceImgNames:
-        tempImg = pygame.image.load(n[0])
-        tempImg = pygame.transform.scale(tempImg, (width, height))
+    for i in range(len(choiceImgNames)):
+        tempImg = pygame.image.load(choiceImgNames[i][0])
+        tempImg = pygame.transform.scale(tempImg, choiceImgDimensions[i][1])
         choiceImages.append(tempImg)
     
 
@@ -300,7 +300,7 @@ if __name__ == "__main__":
                 0, 0, 
                 width, height/10
             )
-            pygame.draw.rect(window, DARK, bannerCoords)
+            #   pygame.draw.rect(window, DARK, bannerCoords)
 
             t = "$" + str(mainStats['budget'])
             headerText = font.render(t, True, textColor)   
