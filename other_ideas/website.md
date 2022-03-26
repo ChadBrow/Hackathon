@@ -9,3 +9,6 @@ maybe  ``django``
 - https://docs.djangoproject.com/en/4.0/intro/tutorial01/
 - https://www.djangoproject.com/start/
 - https://www.djangoproject.com
+
+``
+``sudo python3 -m pip install Django``
