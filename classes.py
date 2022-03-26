@@ -1,9 +1,7 @@
 class FocusGroup: # are we just calling this the money too (where "performance" is "willingness to donate")
-    def __init__(self, startApproval = 0, startDApproval = 0, startPerform = 0, startDPerformance = 0):
+    def __init__(self, startApproval = 0, startPerformance = 0):
         self.approval = startApproval
-        self.dApproval = startDApproval
-        self.performance = startPerform
-        self.dPerformance = startDPerformance
+        self.performance = startPerformance
     
     def modApproval(self, var):
         self.approval += var
@@ -18,10 +16,8 @@ class FocusGroup: # are we just calling this the money too (where "performance" 
         self.dPerformance += var
     
     def update(self):
-        self.approval += self.dApproval
-        self.performance += self.dPerformance
-        self.dApproval = 0.75 * self.dApproval
-        self.dPerformance = 0.75 * self.dPerformance
+        self.approval += 0.5 * (0.5 - self.approval)
+        self.performance += 0.5 * (0.5 - self.performance)
 
     def returnDict(self):
         return {"approval" : self.approval, "performance" : self.approval}
@@ -35,11 +31,11 @@ class Choice:
     
 
 class Event:
-    def __init__(self, title, image, body, choices):
+    def __init__(self, title, image, body, choice):
         self.title = title
         self.image = image
         self.body = body
-        self.choices = choices
+        self.choice = choice
 
 class MoneySink:
     def __init__(self, effects, funding = 0, maxFunding = 0): 

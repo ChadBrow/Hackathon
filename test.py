@@ -1,10 +1,10 @@
 
+from data import FOCUS_GROUPS
 
-def fun(a):
-    print("Hello", a)
+for i in FOCUS_GROUPS:
+    print(FOCUS_GROUPS[i].performance)
+for i in FOCUS_GROUPS:
+    FOCUS_GROUPS[i].update()
 
-test = fun(10)
-
-print("Howdy")
-
-test
+for i in FOCUS_GROUPS:
+    print(FOCUS_GROUPS[i].performance)

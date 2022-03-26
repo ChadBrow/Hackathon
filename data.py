@@ -1,18 +1,17 @@
 import classes as c
 
 FOCUS_GROUPS = {
-    "students": c.FocusGroup(0.5, 0.04, 0.5, 0.04),
-    "faculty": c.FocusGroup(0.5, 0.04, 0.5, 0.04),
-    "donors": c.FocusGroup(0.5, 0.04, 0.5, 0.04),
-    "fans": c.FocusGroup(0.5, 0.04, 0.5, 0.04)
+    "students": c.FocusGroup(0.5, 0.5),
+    "faculty": c.FocusGroup(0.5, 0.5),
+    "donors": c.FocusGroup(0.5, 0.5),
+    "fans": c.FocusGroup(0.5, 0.5)
 }
 
 moneySinks = {
     "clubs" : c.MoneySink(
         effects = [
-            [FOCUS_GROUPS['students'].modDApproval(0.001)], 
             [FOCUS_GROUPS['students'].modApproval, 0.002], 
-            [FOCUS_GROUPS['faculty'].modDApproval, -0.0005]], 
+            [FOCUS_GROUPS['faculty'].modApproval, -0.002]], 
             funding=100,
             maxFunding = 150
     ) # change these to real data
@@ -27,8 +26,8 @@ RANDOM_EVENTS = [
         choice = [
             c.Choice(
                 title = "Raise Club Spending",
-                body = "Increase cost of club spending by 20M\nIncrease student happiness growth by 2%% and decrease faculty happiness growth by 1%",
-                effects = [[moneySinks['clubs'].modFunding, 20], [FOCUS_GROUPS['students'].modApproval, -4]]
+                body = "Increase cost of club spending by 25M\nIncrease student happiness by 5%%.",
+                effects = [[moneySinks['clubs'].modFunding, 25], [FOCUS_GROUPS['faculty'].modApproval, 0.025]]
             ),
             c.Choice(
                 title = "Reject the Proposal",
