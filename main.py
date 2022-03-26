@@ -27,9 +27,14 @@ menuImg = pygame.image.load("resources/menu.png")
 menuImg = pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
 mapImg = pygame.image.load("resources/map.png")
 mapImg = pygame.transform.scale(mapImg, (int(width/12), int(width/12)))
-                    #Image object, position
+
 mainGameSprites = [guiObjects.sprite(officeImg, (0, 0), (width, height), "officeImg"), guiObjects.sprite(menuImg, (0,0), (int(width/12), int(width/12)), "menuImg"), guiObjects.sprite(mapImg, (width - mapImg.get_width(),0), (int(width/12), int(width/12)), "mapImg")]
-menuSprites = [guiObjects.sprite(), guiObjects.sprite()]
+
+menuBgImg = pygame.image.load("resources/deskJonkers.jpg")
+menuBgImg = pygame.transform.scale(menuBgImg, (width, height))
+
+
+menuSprites = [guiObjects.sprite(menuBgImg, (0,0), (width, height), "menuBgImg")]
 
 clickedSprites = []
 hoveredSprites = []
@@ -41,8 +46,8 @@ hoveredSprites = []
     #2 is menu/start screen
     #3 is main game screen
     #4 is map scene
-gameState = 3 #Technicaly should start with 2
-gameVisuals = [None, None, None, mainGameSprites, None]
+gameState = 2 #Technicaly should start with 2
+gameVisuals = [None, None, menuSprites, mainGameSprites, None]
 
 
 while gameState:
@@ -66,6 +71,9 @@ while gameState:
     print("Clicked Sprites: " + str(clickedSprites))
     print("Hovered Spries: " + str(hoveredSprites))
 
+    for surface in gameVisuals[gameState]:
+        window.blit(surface.image, surface.position)
+    """
     if gameState == 1: #Game over screen
         pass
     elif gameState == 2: #Start screen/menu screen
@@ -75,7 +83,7 @@ while gameState:
             window.blit(surface.image, surface.position)
     elif gameState == 4: #Map scene
         pass
-
+    """
     clickedSprites = []
     hoveredSprites = []
     pygame.display.update()
