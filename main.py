@@ -1,8 +1,12 @@
 import pygame, random
 import guiFunctions, guiClasses
+
 from classes import *
 from data import *
 # from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
+#import classes
+#from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
+
 
 pygame.init()
 
@@ -132,8 +136,16 @@ if __name__ == "__main__":
     menuImg =    pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
 
 
-    mainGameSprites =  [guiClasses.sprite(officeImg,  (0, 0),                             (width, height),                "officeImg"),
-                        guiClasses.sprite(menuImg,    (0, 0),                             (int(width/12), int(width/12)), "menuImg"),]
+
+    #window.blit(text, textRect)
+
+    mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0), (width, height),                "officeImg"),
+                        guiClasses.sprite(menuImg,   (0, 0), (int(width/12), int(width/12)), "menuImg"),
+                        #Top bar info
+                        guiClasses.text("Hello", (width//2, height//2), (width//2, height//2))
+                        #Proposals
+                        #Focus Groups
+                        ]
 
     menuBgImg =  pygame.image.load("resources/deskJonkers.jpg")
     menuBgImg =  pygame.transform.scale(menuBgImg, (width, height))
@@ -198,8 +210,10 @@ if __name__ == "__main__":
 
 
         for surface in gameVisuals[gameState]:
-            window.blit(surface.image, surface.position)
-
+            if str(type(surface)) == "<class 'guiClasses.sprite'>":
+                window.blit(surface.image, surface.position)
+            elif str(type(surface)) == "<class 'guiClasses.text'":
+                window.blit(surface.text, surface.position)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
