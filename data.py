@@ -47,7 +47,7 @@ randomEvents = [
             Choice(
                 title = "Hold the Event",
                 body = "Increase cost of club spending by 2M\nIncrease student happiness target by 5%%.",
-                effects = [[costs.modStudentGroups, 20], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
+                effects = [[costs.modStudentGroups, 2], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
             ),
             Choice(
                 title = "Reject the Proposal",
@@ -59,12 +59,12 @@ randomEvents = [
     Event(
         title = "Bond Hall Toilet Explosion",
         image = "deskJonkers.jpg",
-        body = "",
+        body = "Late last night a loud bang was heard in one of the Bond Hall bathrooms. Upon investigation, the janitor found that a student had set off fireworks in one of the men's room stalls. Father Jonkins has decided to . . .",
         choices = [
             Choice(
-                title = "Hold the Event",
-                body = "Increase cost of club spending by 2M\nIncrease student happiness target by 5%%.",
-                effects = [[costs.modStudentGroups, 20], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
+                title = "Prioritize Sustainability",
+                body = "Replace the destroyed toilets and plumbing with more environmentally friendly alternatives.\nIncrease cost of administration spending by 2M\nIncrease sustainability by 5%%.",
+                effects = [[costs.modStudentGroups, 2], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
             ),
             Choice(
                 title = "Reject the Proposal",

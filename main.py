@@ -7,6 +7,7 @@ from data import *
 #import classes
 #from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
 
+############## PYGAME ##############
 
 pygame.init()
 
