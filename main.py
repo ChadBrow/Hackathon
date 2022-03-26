@@ -17,10 +17,6 @@ fontSize = 16
 chosenOption = None # the variable that backend.py will look for
 chosenEvent = None
 
-screen = pygame.display.set_mode((640,480), FULLSCREEN)
-# get the size of the fullscreen display
-width, height= screen.get_size()
-
 fps = 60
 
 bgcolor = (12, 23, 40) #blue
@@ -129,7 +125,10 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((width, height))
+    window = pygame.display.set_mode((640,480), FULLSCREEN)
+    # get the size of the fullscreen display
+    width, height= window.get_size()
+
     pygame.display.set_caption("Our Dame")
     gameIcon = pygame.image.load("resources/globe.jpg")
     pygame.display.set_icon(gameIcon)
