@@ -17,8 +17,8 @@ fontSize = 16
 chosenOption = None # the variable that backend.py will look for
 chosenEvent = None
 
-width = 960
-height = 540
+width = 1600
+height = 900
 fps = 60
 
 bgcolor = (12, 23, 40) #blue
@@ -139,11 +139,12 @@ if __name__ == "__main__":
 
 
     #We should define a sprite class and all the types of stuff we have on the screen are subclasses of sprite
-    officeImg =  pygame.image.load("resources/desk.jpg")
-    officeImg =  pygame.transform.scale(officeImg, (width, height))
-    menuImg =    pygame.image.load("resources/menu.png")
-    menuImg =    pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
-
+    officeImg = pygame.image.load("resources/desk.jpg")
+    officeImg = pygame.transform.scale(officeImg, (width, height))
+    menuImg =   pygame.image.load("resources/menu.png")
+    menuImg =   pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
+    grampyImg = pygame.image.load("resources/grampyclock.png")
+    grampyImg = pygame.transform.scale(grampyImg, (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2))
 
 
     #window.blit(text, textRect)
@@ -151,7 +152,7 @@ if __name__ == "__main__":
     mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0), (width, height),                "officeImg"),
                         guiClasses.sprite(menuImg,   (0, 0), (int(width/12), int(width/12)), "menuImg"),
                         #Top bar info
-                        guiClasses.text("Hello", (width//2, height//2), (width//2, height//2))
+                        guiClasses.sprite(grampyImg, (width - grampyImg.get_width(), 0), (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2))
                         #Proposals
                         #Focus Groups
                         ]
