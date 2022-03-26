@@ -1,4 +1,5 @@
 import pygame
+import guiFunctions
 
 pygame.init()
 
@@ -11,6 +12,8 @@ fgcolor = (255, 255, 255)
 
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Our Dame")
+gameIcon = pygame.image.load("resources/deskJonkers.gif")
+pygame.display.set_icon(gameIcon)
 window.fill(bgcolor)
 
 clock = pygame.time.Clock()
@@ -43,9 +46,12 @@ while gameState:
             gameState = 0
         elif event.type == pygame.MOUSEBUTTONUP:
             pos = pygame.mouse.get_pos()
-
-            clicked_sprites = [s for s in gameVisuals[gameState] if s.rect.collidepoint(pos)]
+            clickedSprites = []
+            for visual in gameVisuals[gameState]:
+                if guiFunctions.detectCollision(visual, pos):
+                    clickedSprites.append(visual)
             #Do something with the clicked sprites
+
     window.fill(bgcolor)
 
     
@@ -55,7 +61,7 @@ while gameState:
     elif gameState == 2: #Start screen/menu scree
         pass
     elif gameState == 3: #Main office scene
-        for i in range(len(mainGameSprites)):
+        for i in range(len(mainGameSprites[0])):
             window.blit(mainGameSprites[0][i], mainGameSprites[1][i])
     elif gameState == 4: #Map scene
         pass
