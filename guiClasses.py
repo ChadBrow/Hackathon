@@ -28,5 +28,7 @@ class text(sprite):
         font = pygame.font.Font("resources/pressStart2P.ttf", 32)
         self.text = font.render(text, fgcolor, bgcolor)
         self.textRect = self.text.get_rect()
-        self.textRect.update(position, size)
+        self.textRect.center = (position[0] - size[0]//2, position[1] - size[1]//2)
+        self.position = position
+        self.size = size
         self.name = name

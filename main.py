@@ -1,7 +1,7 @@
 import pygame
 import guiFunctions, guiClasses
-import classes
-from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
+#import classes
+#from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
 
 pygame.init()
 
@@ -101,14 +101,15 @@ if __name__ == "__main__":
                 #Do something with the clicked sprites
 
         for theSprite in gameVisuals[gameState]:
-            print(type(theSprite))
             if theSprite.detectCollision(pos):
                 hoveredSprites.append(theSprite.name)
 
 
         for surface in gameVisuals[gameState]:
-            window.blit(surface.image, surface.position)
-
+            if str(type(surface)) == "<class 'guiClasses.sprite'>":
+                window.blit(surface.image, surface.position)
+            elif str(type(surface)) == "<class 'guiClasses.text'":
+                window.blit(surface.text, surface.position)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
