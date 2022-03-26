@@ -128,31 +128,36 @@ def calcIncome():
 
 #################### GAME ######################
 if __name__ == "__main__":
+
     window = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Our Dame")
     gameIcon = pygame.image.load("resources/deskJonkers.gif")
     pygame.display.set_icon(gameIcon)
 
-
-
+    keyPress = pygame.mixer.Sound("resources/keypress.wav")
+    intro = pygame.mixer.Sound("resources/NDvictor.wav")
+    intro.play()
     clock = pygame.time.Clock()
 
 
     #We should define a sprite class and all the types of stuff we have on the screen are subclasses of sprite
-    officeImg = pygame.image.load("resources/desk.jpg")
+    officeImg = pygame.image.load("resources/johnjonkinsathisdest.jpg")
     officeImg = pygame.transform.scale(officeImg, (width, height))
     menuImg =   pygame.image.load("resources/menu.png")
     menuImg =   pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
-    grampyImg = pygame.image.load("resources/grampyclock.png")
-    grampyImg = pygame.transform.scale(grampyImg, (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2))
+    grampyImg = pygame.image.load("resources/clocky.jpg")
+    grampyImg = pygame.transform.scale(grampyImg, (185, 253))
+    #bookImg =   pygame.image.load("resources/book.png")
+    #bookImg =   pygame.transform.scale(bookImg, (height))
 
 
-    #window.blit(text, textRect)
 
-    mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0), (width, height),                "officeImg"),
-                        guiClasses.sprite(menuImg,   (0, 0), (int(width/12), int(width/12)), "menuImg"),
+    mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0),                             (width, height),                                                     "officeImg"),
+                        guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
-                        guiClasses.sprite(grampyImg, (width - grampyImg.get_width(), 0), (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2))
+                        #Desk junk
+                        guiClasses.sprite(grampyImg, (1270,160), (grampyImg.get_width(), grampyImg.get_height()), "grampyImg")
+                        #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
                         ]
@@ -219,6 +224,7 @@ if __name__ == "__main__":
                 for theSprite in gameVisuals[gameState]:
                     if theSprite.detectCollision(pos):
                         clickedSprites.append(theSprite.name)
+                        keyPress.play()
                 #Do something with the clicked sprites
 
         for theSprite in gameVisuals[gameState]:
@@ -227,11 +233,11 @@ if __name__ == "__main__":
 
 
         for surface in gameVisuals[gameState]:
-            print(type(surface))
             if str(type(surface)) == "<class 'guiClasses.sprite'>":
                 window.blit(surface.image, surface.position)
             elif str(type(surface)) == "<class 'guiClasses.text'>":
                 window.blit(surface.text, surface.textRect)
+        print(clickedSprites)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
@@ -250,12 +256,12 @@ if __name__ == "__main__":
                         window.blit(optionsImgHovered, display.position)
                     elif display.name == item and display.name == "exitImg":
                         window.blit(exitImgHovered, display.position)
-
         elif gameState == 3: #Main office scene
             for item in clickedSprites:
                 if item == "menuImg":
                     gameState = 2
-                elif item == "nextMonthImg":
+                elif item == "grampyImg":
+                    print("ticking")
                     tick()
         elif gameState == 4: # playing the game
             # constants
