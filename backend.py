@@ -12,7 +12,6 @@ savings = 1000 # total savings
 recommendedBudget = 1000 # how much you can spend without dipping into your savings
 spentAmmount = 0
 chosenEvent = None
-academicLevel = 0
 
 mainStats = {
     "performance": 0,
@@ -39,11 +38,12 @@ def tick():
 
     # Update FOCUS_GROUPS
     #Donor approval target is equal to the academic level
-    academicLevel = (FOCUS_GROUPS["students"].performance + FOCUS_GROUPS["faculty"].performance) / 2
+    avgCevel = (FOCUS_GROUPS["students"].performance + FOCUS_GROUPS["faculty"].performance) / 2
     FOCUS_GROUPS["donors"].modApprovalTarget(academicLevel - FOCUS_GROUPS["students"].performanceTarget) 
     FOCUS_GROUPS["donors"].updateApproval()
 
     #fan approval target is equal to campus happiness
+
 
     #student and faculty performance wanna go to student and faculty approval
     #update student and faculty approval then set student and faculty performance target equal to new approval then update performance
