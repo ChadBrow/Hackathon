@@ -218,8 +218,8 @@ if __name__ == "__main__":
     
     # colors
     # r, g, b
-    textColor = (230, 230, 230) # change this
-    GREEN = (50, 250, 50) # change this
+    textColor = (230, 230, 230) # change this #no
+    GREEN = (50, 250, 50) # change this #no
     DARK = (40, 40, 50)
     
 
