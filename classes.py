@@ -7,9 +7,9 @@ class FocusGroup: # are we just calling this the money too (where "performance" 
         self.performance = startPerformance
         self.approvalTarget = startApproval
         self.performanceTarget = startPerformance
-        self.image = pygame.image.load(image)
+        self.image = pygame.image.load("resources/" + image)
         self.image = pygame.transform.scale(self.image, (width/5, width/5))
-
+    
     
     def modApproval(self, var):
         self.approval += var
@@ -23,8 +23,10 @@ class FocusGroup: # are we just calling this the money too (where "performance" 
     def modPerformanceTarget(self, var):
         self.performanceTarget += var
     
-    def update(self):
+    def updateApproval(self):
         self.approval += 0.5 * (self.approvalTarget - self.approval)
+    
+    def updatePerformance(self):
         self.performance += 0.5 * (self.performanceTarget - self.performance)
 
     def returnDict(self):
@@ -42,7 +44,7 @@ class Choice:
 class Event:
     def __init__(self, title, image, body, choices):
         self.title = title
-        self.image = pygame.image.load(image)
+        self.image = pygame.image.load("resources/" + image)
         self.image = pygame.transform.scale(self.image, (width/5, width/5))
         self.body = body
         self.choices = choices
