@@ -5,20 +5,17 @@ FOCUS_GROUPS = {
     "students": FocusGroup("exit.png", 0.5, 0.5),
     "faculty": FocusGroup("exit.png", 0.5, 0.5),
     "donors": FocusGroup("exit.png", 0.5, 0.5),
-    "fans": FocusGroup("exit.png", 0.5, 0.5)
+    "fans": FocusGroup("exit.png", 0.5, 0.5),
+}
+
+variables = {
+    "sustainability": 0,
+    "savings": 200
 }
 
 costs = Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly cost data Jack found online
 
-# moneySinks = {
-#     "clubs" : c.MoneySink(
-#         effects = [
-#             [FOCUS_GROUPS['students'].modApproval, 0.002], 
-#             [FOCUS_GROUPS['faculty'].modApproval, -0.002],
-#             ]
-#     ) # change these to real data
-    
-# }
+####lists####
 
 studentRequests = [
     Request(
@@ -64,7 +61,7 @@ randomEvents = [
             Choice(
                 title = "Prioritize Sustainability",
                 body = "Replace the destroyed toilets and plumbing with more environmentally friendly alternatives.\nIncrease cost of administration spending by 2M\nIncrease sustainability by 5%%.",
-                effects = [[costs.modStudentGroups, 2], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
+                effects = [[costs.modStudentGroups, 2], [modSustainability, 0.05]]
             ),
             Choice(
                 title = "Reject the Proposal",
@@ -74,6 +71,10 @@ randomEvents = [
         ]
     )
 ]
+
+####Helper Functions####
+def modSustainability(var):
+    vars["sustainability"] += var
 
 # maybe need to import the classes here
 # RANDOM_EVENTS = [

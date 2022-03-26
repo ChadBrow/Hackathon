@@ -98,9 +98,8 @@ def tick():
     choice = guiChoice() # this is a placeholder for the choice passed back by anar's gui
     enactEvent(chosenEvent, choice) # this is a placeholder function for however we want to do this
 
-    # update budget
-    
-    savings = savings - spentAmmount + revenue()
+    # update savings
+    vars["savings"] = vars["savings"] - spentAmmount + calcIncome()
 
 def calcIncome():
     #calculates monthly income
@@ -191,6 +190,7 @@ if __name__ == "__main__":
     ### Pygame is stupid and my head hurts
 
     font = pygame.font.Font("resources/pressStart2P.ttf", fontSize)
+    textColor = (230, 230, 230)
     
     
 
@@ -255,7 +255,8 @@ if __name__ == "__main__":
                 elif item == "":
                     pass
         elif gameState == 4: # playing the game
-            
+            t = "$" + str(mainStats['budget'])
+            headerText = font.render(t, True, textColor)            
 
 
             pass
