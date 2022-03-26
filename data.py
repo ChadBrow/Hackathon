@@ -20,7 +20,7 @@ costs = Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly co
 studentRequests = [
     Request(
         title = "Increased Club Support",
-        body = "The student body wants Notre Dame to increase its club support and spending.\nCost: 5M\nEffects:\n  - Increase student happiness target by 10%.\n  - Decrease faculty happiness target by 5%\n  - Increase monthly spending on student groups by 2M",
+        body = "The student body wants Nuestro Madre to increase its club support and spending.\nCost: 5M\nEffects:\n  - Increase student happiness target by 10%.\n  - Decrease faculty happiness target by 5%\n  - Increase monthly spending on student groups by 2M",
         effects = [[FOCUS_GROUPS["students"].modApprovalTarget, 0.1], [FOCUS_GROUPS["faculty"].modApprovalTarget, -0.05], [costs.modStudentGroups, 2]],
         cost = 5
     )
@@ -29,9 +29,18 @@ studentRequests = [
 facultyRequests = [
     Request(
         title = "More Research Grants",
-        body = "The faculty want Notre Dame to increase the amount of research grants that it gives.\nCost: 10M\nEffects:\n - Increase facultry happiness target by 5%.\n  - Increase student happiness target by 5%\n  - Increase monthly spending on research by 5M",
+        body = "The faculty want Nuestro Madre to increase the amount of research grants that it gives.\nCost: 10M\nEffects:\n - Increase facultry happiness target by 5%.\n  - Increase student happiness target by 5%\n  - Increase monthly spending on research by 5M",
         effects = [[FOCUS_GROUPS["faculty"].modApprovalTarget, 0.1], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05], costs.modResearch, 5],
         cost = 10
+    )
+]
+
+donorRequests = [
+    Request(
+        title = "Donor Celebration Feast",
+        body = "Many Nuestro Madre donors have been requesting that the university holds a feast ",
+        effects = [],
+        cost = 0
     )
 ]
 
@@ -65,8 +74,8 @@ randomEvents = [
             ),
             Choice(
                 title = "Prioritize a Quick Repair",
-                body = "Replace the destroyed toilets with ",
-                effects = [[FOCUS_GROUPS['students'].modApproval, -0.05]]
+                body = "Replace the destroyed toilets and plumbing with the most easily attainable models.\nNo effect.",
+                effects = []
             )
         ]
     )
@@ -99,7 +108,7 @@ def modSustainability(var):
 #     {
 #         "title": "Students Ask for Increased Club Spending",
 #         "image": "deskJonkers.jpg",
-#         "body": "Many students have requested an increase to Notre Dame's club funding budget. Student body president Pat Li has brought a petition for increased club spending to Father Jonkins. After much deliberation, Father Jonkins decided to . . .",
+#         "body": "Many students have requested an increase to Nuestro Madre's club funding budget. Student body president Pat Li has brought a petition for increased club spending to Father Jonkins. After much deliberation, Father Jonkins decided to . . .",
 #         "choices": [
 #             {
 #                 "title": "Raise Club Spending",

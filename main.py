@@ -184,7 +184,11 @@ if __name__ == "__main__":
     ### Pygame is stupid and my head hurts
 
     font = pygame.font.Font("resources/pressStart2P.ttf", fontSize)
-    textColor = (230, 230, 230)
+    
+    # colors
+
+    textColor = (230, 230, 230) # change this
+    GREEN = (50, 250, 50) # change this
     
     
 
@@ -195,7 +199,7 @@ if __name__ == "__main__":
         #2 is menu/start screen
         #3 is main game screen
         #4 is map scene
-    gameState = 2 #Technicaly should start with 2
+    gameState = 4 #Technicaly should start with 2
     gameVisuals = [None, None, menuSprites, mainGameSprites, None, None]
 
 
@@ -252,7 +256,7 @@ if __name__ == "__main__":
         elif gameState == 4: # playing the game
             t = "$" + str(mainStats['budget'])
             headerText = font.render(t, True, textColor)            
-
+            pygame.draw.rect(window, GREEN, (10, 10, 10, 20))
 
             pass
         elif gameState == 5: #Options scene
