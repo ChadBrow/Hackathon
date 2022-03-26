@@ -196,7 +196,7 @@ if __name__ == "__main__":
 
     choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
     choiceImgDimensions = [
-        [(0, 0), (width, height * .1)]
+        [(0, 0), (width, int(height * .1))]
     ]
     choiceImages = []
     for i in range(len(choiceImgNames)):
