@@ -1,24 +1,10 @@
 import json, random
 import classes as c
 
-"""
-events
-    - text
-    - dictionary of their stat changes
-    {
-        "name" : "whatever the name of the event is"
-        "sustain" : +2,
-        "approval" : -1,
-
-    }
-
-all the big stats:
-    {
-        "overall approval" : 
-    }
+# import the data
+from data import * # import all the variables from data.py
 
 
-"""
 # university people
 students = c.FocusGroup()
 faculty = c.FocusGroup()
@@ -40,9 +26,6 @@ or should we do
 - neutral 
 - bad
 """
-scriptedEvents = [] # array of c.Event() objects
-randomEvents = [[], [], []] # array of c.Event() -> impacts the university
-econEvents = [[], [], []] # array of events that happen to the economy (impacting the fans and donors)
 
 # constants
 tuition = 1000 # just a random constant.
@@ -53,23 +36,6 @@ mainStats = {
     "approval": 0,
     "budget": 0
 }
-def startup(dificulty):
-    if dificulty == "medium":
-        # university people
-        students = c.FocusGroup(0.5, 0.04, 0.5, 0.04)
-        faculty = c.FocusGroup(0.5, 0.04, 0.5, 0.04)
-
-        # da money (donors, games, tuition)
-        donors = c.FocusGroup(0.5, 0.04, 0.5, 0.04) # approval changes % money, performance changes total amount of money
-        fans = c.FocusGroup(0.5, 0.04, 0.5, 0.04) # approval changes how many fans come out, performance changes how hype they are
-
-def getEvents(fileName):
-    text = ""
-    with open(fileName, 'r') as f:
-        text += "".join(f.readlines)
-    print(text)    
-    jsonData = json.loads(text)
-    
 
 def tick():
 
@@ -82,3 +48,14 @@ def tick():
     faculty.update()
     donors.update()
     fans.update()
+
+
+
+
+
+def parseEvents(events): # this method is probably obsolete
+    tempEvents = []
+    for event in events: # check to see if this plays with the python list of dictionaries
+        tC = [c.Choice(j['title'], j['body'], j['effects']) for j in event['choices']]
+        tempEvents.append(c.Event(event['title'], event['image'], event['body'], tC))
+    return tempEvents
