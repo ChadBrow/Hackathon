@@ -28,8 +28,16 @@ if __name__ == "__main__":
     menuImg =    pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
 
 
-    mainGameSprites =  [guiClasses.sprite(officeImg,  (0, 0),                             (width, height),                "officeImg"),
-                        guiClasses.sprite(menuImg,    (0, 0),                             (int(width/12), int(width/12)), "menuImg"),]
+
+    #window.blit(text, textRect)
+
+    mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0), (width, height),                "officeImg"),
+                        guiClasses.sprite(menuImg,   (0, 0), (int(width/12), int(width/12)), "menuImg"),
+                        #Top bar info
+                        guiClasses.text("Hello", (width//2, height//2), (width//2, height//2))
+                        #Proposals
+                        #Focus Groups
+                        ]
 
     menuBgImg =  pygame.image.load("resources/deskJonkers.jpg")
     menuBgImg =  pygame.transform.scale(menuBgImg, (width, height))
@@ -89,6 +97,7 @@ if __name__ == "__main__":
                 #Do something with the clicked sprites
 
         for theSprite in gameVisuals[gameState]:
+            print(type(theSprite))
             if theSprite.detectCollision(pos):
                 hoveredSprites.append(theSprite.name)
 
