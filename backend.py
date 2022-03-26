@@ -3,7 +3,7 @@ import json, random
 
 # import the data
 from data import * # import all the variables from data.py
-
+from main import chosenOption
 
 # global variables
 tuition = 1000 # just a random constant.
@@ -32,18 +32,20 @@ def pushEvent(event):
     return event
     
 def guiChoice():
-    return 0
+    return chosenOption
 
 def tick():
-
+    # Chad's code: (best code)
     # Update FOCUS_GROUPS
     #Donor approval target is equal to the academic level
-    avgCevel = (FOCUS_GROUPS["students"].performance + FOCUS_GROUPS["faculty"].performance) / 2
-    FOCUS_GROUPS["donors"].modApprovalTarget(academicLevel - FOCUS_GROUPS["students"].performanceTarget) 
+    avgCampusPerformance = (FOCUS_GROUPS["students"].performance + FOCUS_GROUPS["faculty"].performance) / 2
+    FOCUS_GROUPS["donors"].modApprovalTarget(avgCampusPerformance - FOCUS_GROUPS["donors"].approvalTarget) 
     FOCUS_GROUPS["donors"].updateApproval()
 
     #fan approval target is equal to campus happiness
-
+    avgCampusHappiness = (FOCUS_GROUPS["students"].approval + FOCUS_GROUPS["faculty"].approval) / 2
+    FOCUS_GROUPS["fans"].modApprovalTarget(avgCampusHappiness - FOCUS_GROUPS["fans"].approvalTarget)
+    FOCUS_GROUPS["fans"].updateApproval()
 
     #student and faculty performance wanna go to student and faculty approval
     #update student and faculty approval then set student and faculty performance target equal to new approval then update performance
@@ -59,6 +61,8 @@ def tick():
     for c in FOCUS_GROUPS:
         FOCUS_GROUPS[c].update()
 
+
+    
     # check for events
     chanceOfEvent = random.randint(1, 100)
     event = None

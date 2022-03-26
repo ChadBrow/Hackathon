@@ -1,8 +1,12 @@
 import pygame
 import guiFunctions, guiClasses
 import classes
+from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
 
 pygame.init()
+
+chosenOption = None # the variable that backend.py will look for
+
 
 width = 960
 height = 540
