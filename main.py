@@ -141,22 +141,25 @@ if __name__ == "__main__":
 
 
     #We should define a sprite class and all the types of stuff we have on the screen are subclasses of sprite
-    officeImg = pygame.image.load("resources/johnjonkinsathisdest.jpg")
-    officeImg = pygame.transform.scale(officeImg, (width, height))
-    menuImg =   pygame.image.load("resources/menu.png")
-    menuImg =   pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
-    grampyImg = pygame.image.load("resources/clocky.jpg")
-    grampyImg = pygame.transform.scale(grampyImg, (185, 253))
-    #bookImg =   pygame.image.load("resources/book.png")
-    #bookImg =   pygame.transform.scale(bookImg, (height))
-
+    officeImg =  pygame.image.load("resources/johnjonkinsathisdest.jpg")
+    officeImg =  pygame.transform.scale(officeImg, (width, height))
+    menuImg =    pygame.image.load("resources/menu.png")
+    menuImg =    pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
+    grampyImg =  pygame.image.load("resources/clocky.jpg")
+    grampyImg =  pygame.transform.scale(grampyImg, (185, 253))
+    cabinetImg = pygame.image.load("resources/cabinot.jpg")
+    cabinetImg = pygame.transform.scale(cabinetImg, (cabinetImg.get_width(), cabinetImg.get_height()))
+    globeImg = pygame.image.load("resources/globe.jpg")
+    globeImg = pygame.transform.scale(globeImg, (globeImg.get_width(), globeImg.get_height()))
 
 
     mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0),                             (width, height),                                                     "officeImg"),
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
                         #Desk junk
-                        guiClasses.sprite(grampyImg, (1270,160), (grampyImg.get_width(), grampyImg.get_height()), "grampyImg")
+                        guiClasses.sprite(grampyImg, (1270,160), (grampyImg.get_width(), grampyImg.get_height()), "grampyImg", show = False),
+                        guiClasses.sprite(cabinetImg, (160, 180), (cabinetImg.get_width(), cabinetImg.get_height()), "cabinetImg", show = False),
+                        guiClasses.sprite(globeImg,   (1240, 500), (globeImg.get_width(), globeImg.get_height()), "globeImg", show = False)
                         #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
@@ -208,7 +211,7 @@ if __name__ == "__main__":
         #2 is menu/start screen
         #3 is main game screen
         #4 is map scene
-    gameState = 4 #Technicaly should start with 2
+    gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, None, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
@@ -234,10 +237,10 @@ if __name__ == "__main__":
 
         for surface in gameVisuals[gameState]:
             if str(type(surface)) == "<class 'guiClasses.sprite'>":
-                window.blit(surface.image, surface.position)
+                if surface.show:
+                    window.blit(surface.image, surface.position)
             elif str(type(surface)) == "<class 'guiClasses.text'>":
                 window.blit(surface.text, surface.textRect)
-        print(clickedSprites)
         if gameState == 1: #Game over screen
             pass
         elif gameState == 2: #Start screen/menu screen
@@ -263,6 +266,12 @@ if __name__ == "__main__":
                 elif item == "grampyImg":
                     print("ticking")
                     tick()
+                elif item == "cabinetImg":
+                    gameState = 4
+                    print("cabinet")
+                elif item == "globeImg":
+                    print("globe")
+                    #Chad function
         elif gameState == 4: # playing the game
             # constants
             border = .005
