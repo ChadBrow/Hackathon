@@ -10,6 +10,7 @@ from data import *
 ############## PYGAME ##############
 
 pygame.init()
+fontSize = 16
 
 ############## CONSTANTS ##############
 
@@ -35,6 +36,7 @@ mainStats = {
     "budget": 0
 }
 
+
 ############### FUNCTIONS ###############
 
 def enactEvent(event, choice):
@@ -55,10 +57,14 @@ def guiChoice():
 
 def tick():
     # Chad's code: (best code)
+    # calculate balance for next month
+    balance = calcIncome() - costs.total()
+
     # Update FOCUS_GROUPS
-    #Donor approval target is equal to the academic level
+    #Donor approval target is equal to average of the academic level and budget balance
     avgCampusPerformance = (FOCUS_GROUPS["students"].performance + FOCUS_GROUPS["faculty"].performance) / 2
-    FOCUS_GROUPS["donors"].modApprovalTarget(avgCampusPerformance - FOCUS_GROUPS["donors"].approvalTarget) 
+    targetHappiness = (avgCampusPerformance + 0.5 * balance / 20) / 2
+    FOCUS_GROUPS["donors"].modApprovalTarget(targetHappiness - FOCUS_GROUPS["donors"].approvalTarget) 
     FOCUS_GROUPS["donors"].updateApproval()
 
     #fan approval target is equal to campus happiness
@@ -92,9 +98,8 @@ def tick():
     choice = guiChoice() # this is a placeholder for the choice passed back by anar's gui
     enactEvent(chosenEvent, choice) # this is a placeholder function for however we want to do this
 
-    # update budget
-    
-    savings = savings - spentAmmount + revenue()
+    # update savings
+    vars["savings"] = vars["savings"] - spentAmmount + calcIncome()
 
 def calcIncome():
     #calculates monthly income
@@ -103,6 +108,8 @@ def calcIncome():
     donations = 120 * FOCUS_GROUPS["donors"].performance * FOCUS_GROUPS["donors"].approval     #30/month at start on medium
     endowment = 0.1 * savings                                  #20/month at start on medium
     events = 40 * FOCUS_GROUPS["fans"].approval                #20/month at start on medium
+
+    return tuition + grants + donations + endowment + events
 
 
 
@@ -173,6 +180,13 @@ if __name__ == "__main__":
 
     clickedSprites = []
     hoveredSprites = []
+    
+    ### Pygame is stupid and my head hurts
+
+    font = pygame.font.Font("resources/pressStart2P.ttf", fontSize)
+    textColor = (230, 230, 230)
+    
+    
 
     #Alright, boys pay attention
     #Game state is teeling what scene to load and how the gui will interact with the user.
@@ -234,7 +248,11 @@ if __name__ == "__main__":
                     gameState = 2
                 elif item == "nextMonthImg":
                     tick()
-        elif gameState == 4: #scene
+        elif gameState == 4: # playing the game
+            t = "$" + str(mainStats['budget'])
+            headerText = font.render(t, True, textColor)            
+
+
             pass
         elif gameState == 5: #Options scene
             pass
