@@ -25,10 +25,11 @@ class FocusGroup: # are we just calling this the money too (where "performance" 
         return {"approval" : self.approval, "performance" : self.approval}
 
 class Choice:
-    def __init__(self, title, body, effects):
+    def __init__(self, title, body, effects, cost = 0):
         self.title = title
         self.body = body
         self.effects = effects
+        self.cost = cost
     
     
 
@@ -40,10 +41,11 @@ class Event:
         self.choices = choices
 
 class Request:
-    def __init__(self, title, body, effects):
+    def __init__(self, title, body, effects, cost = 0):
         self.title = title
         self.body = body
         self.effects = effects
+        self.cost = cost
 
 # class MoneySink:
 #     def __init__(self, effects): 

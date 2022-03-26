@@ -7,7 +7,7 @@ FOCUS_GROUPS = {
     "fans": c.FocusGroup(0.5, 0.5)
 }
 
-costs = c.Costs(25, 400, 200, 200, 300) #monthly costs not yearly. Based off yearly cost data Jack found online though
+costs = c.Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly cost data Jack found online
 
 # moneySinks = {
 #     "clubs" : c.MoneySink(
@@ -22,7 +22,17 @@ costs = c.Costs(25, 400, 200, 200, 300) #monthly costs not yearly. Based off yea
 studentRequests = [
     c.Request(
         title = "Increased Club Support",
-        body = "The student body wants Notre Dame to increase its club support and spending.\nCost: 2M\nEffects:\n  - Increase student happiness target by 10%%.\n  - Decrease faculty happiness target by 5%%\n  - Increase monthly spending on student groups by 20M"
+        body = "The student body wants Notre Dame to increase its club support and spending.\nCost: 5M\nEffects:\n  - Increase student happiness target by 10%%.\n  - Decrease faculty happiness target by 5%%\n  - Increase monthly spending on student groups by 2M",
+        effects = [[FOCUS_GROUPS["students"].modApprovalTarget, 0.1], [FOCUS_GROUPS["faculty"].modApprovalTarget, -0.05], [costs.modStudentGroups, 2]],
+        cost = 5
+    )
+]
+
+facultyRequests = [
+    c.Request(
+        title = "More Research Grants",
+        body = "The faculty want Notre Dame to increase the amount of research grants that it gives.\nCost: 10M\nEffects:\n - Increase facultry happiness target by 10%%.\n  - Increase student happiness target by 5%%\n  - Decrease donor happiness target by 5%%\n  - Increase monthly spending on research by 4M",
+
     )
 ]
 
@@ -34,7 +44,7 @@ RANDOM_EVENTS = [
         choices = [
             c.Choice(
                 title = "Raise Club Spending",
-                body = "Increase cost of club spending by 20M\nIncrease student happiness target by 5%%.",
+                body = "Increase cost of club spending by 2M\nIncrease student happiness target by 5%%.",
                 effects = [[costs.modStudentGroups, 20], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05]]
             ),
             c.Choice(
