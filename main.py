@@ -179,14 +179,6 @@ if __name__ == "__main__":
     exitImgHovered =    pygame.image.load("resources/exitHovered.png")
     exitImgHovered =    pygame.transform.scale(exitImgHovered, (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)))
 
-    # choice page images
-
-    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
-    choiceImages = []
-    for n in choiceImgNames:
-        tempImg = pygame.image.load(n[0])
-        tempImg = pygame.transform.scale(tempImg, (width, height))
-        choiceImages.append(tempImg)
     
 
     menuSprites =  [guiClasses.sprite(menuBgImg,  (0,0),                    (width, height),                                                               "menuBgImg"),
@@ -198,6 +190,16 @@ if __name__ == "__main__":
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
     gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg")]
+
+    # choice page images (aka. Blake is sick and tired of this)
+
+    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
+    choiceImages = []
+    for n in choiceImgNames:
+        tempImg = pygame.image.load(n[0])
+        tempImg = pygame.transform.scale(tempImg, (width, height))
+        choiceImages.append(tempImg)
+    
 
     choiceSprites = []
     for i in range(len(choiceImages)):
