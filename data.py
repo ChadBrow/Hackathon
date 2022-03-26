@@ -32,7 +32,8 @@ facultyRequests = [
     c.Request(
         title = "More Research Grants",
         body = "The faculty want Notre Dame to increase the amount of research grants that it gives.\nCost: 10M\nEffects:\n - Increase facultry happiness target by 10%%.\n  - Increase student happiness target by 5%%\n  - Decrease donor happiness target by 5%%\n  - Increase monthly spending on research by 4M",
-
+        effects = [[FOCUS_GROUPS["faculty"].modApprovalTarget, 0.1], [FOCUS_GROUPS["students"].modApprovalTarget, 0.05], []],
+        cost = 10
     )
 ]
 
