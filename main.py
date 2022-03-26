@@ -17,8 +17,10 @@ fontSize = 16
 chosenOption = None # the variable that backend.py will look for
 chosenEvent = None
 
-width = 1600
-height = 900
+screen = pygame.display.set_mode((640,480), FULLSCREEN)
+# get the size of the fullscreen display
+width, height= screen.get_size()
+
 fps = 60
 
 bgcolor = (12, 23, 40) #blue
