@@ -10,7 +10,8 @@
                 "body": "example",
                 "effects": [
                     {
-                        "function": "students.modAppro"
+                        "function": "students.modApproval",
+                        "value": 0.1
                 }
             ]
             }
