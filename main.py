@@ -1,4 +1,5 @@
 import pygame
+import guiFunctions, guiObjects
 
 pygame.init()
 
@@ -11,7 +12,10 @@ fgcolor = (255, 255, 255)
 
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Our Dame")
-window.fill(bgcolor)
+gameIcon = pygame.image.load("resources/deskJonkers.gif")
+pygame.display.set_icon(gameIcon)
+
+
 
 clock = pygame.time.Clock()
 
@@ -23,43 +27,57 @@ menuImg = pygame.image.load("resources/menu.png")
 menuImg = pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
 mapImg = pygame.image.load("resources/map.png")
 mapImg = pygame.transform.scale(mapImg, (int(width/12), int(width/12)))
+                    #Image object, position
+mainGameSprites = [guiObjects.sprite(officeImg, (0, 0), (width, height), "officeImg"), guiObjects.sprite(menuImg, (0,0), (int(width/12), int(width/12)), "menuImg"), guiObjects.sprite(mapImg, (width - mapImg.get_width(),0), (int(width/12), int(width/12)), "mapImg")]
+menuSprites = [guiObjects.sprite(), guiObjects.sprite()]
 
-mainGameSprites = [[officeImg, menuImg, mapImg], [(0, 0), (0, 0), (width - mapImg.get_width(), 0)]]
+clickedSprites = []
+hoveredSprites = []
 
 #Alright, boys pay attention
 #Game state is teeling what scene to load and how the gui will interact with the user.
-#0 is when the game is gonna be closed
-#1 is when the game is game over screen
-#2 is menu/start screen
-#3 is main game screen
-#4 is map scene
+    #0 is when the game is gonna be closed
+    #1 is when the game is game over screen
+    #2 is menu/start screen
+    #3 is main game screen
+    #4 is map scene
 gameState = 3 #Technicaly should start with 2
 gameVisuals = [None, None, None, mainGameSprites, None]
 
 
 while gameState:
+    window.fill(bgcolor)
+    pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gameState = 0
         elif event.type == pygame.MOUSEBUTTONUP:
-            pos = pygame.mouse.get_pos()
-
-            clicked_sprites = [s for s in gameVisuals[gameState] if s.rect.collidepoint(pos)]
+            #pos = pygame.mouse.get_pos()
+            clickedSprites = []
+            for theSprite in gameVisuals[gameState]:
+                if theSprite.detectCollision(pos):
+                    clickedSprites.append(theSprite.name)
             #Do something with the clicked sprites
-    window.fill(bgcolor)
 
-    
+    for theSprite in gameVisuals[gameState]:
+        if theSprite.detectCollision(pos):
+            hoveredSprites.append(theSprite.name)
 
-    if gameState == 1: #Game over
+    print("Clicked Sprites: " + str(clickedSprites))
+    print("Hovered Spries: " + str(hoveredSprites))
+
+    if gameState == 1: #Game over screen
         pass
-    elif gameState == 2: #Start screen/menu scree
+    elif gameState == 2: #Start screen/menu screen
         pass
     elif gameState == 3: #Main office scene
-        for i in range(len(mainGameSprites)):
-            window.blit(mainGameSprites[0][i], mainGameSprites[1][i])
+        for surface in mainGameSprites:
+            window.blit(surface.image, surface.position)
     elif gameState == 4: #Map scene
         pass
 
+    clickedSprites = []
+    hoveredSprites = []
     pygame.display.update()
     clock.tick(fps) #Set FPS
 pygame.quit()
