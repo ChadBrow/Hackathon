@@ -135,8 +135,8 @@ if __name__ == "__main__":
     pygame.display.set_icon(gameIcon)
 
     keyPress = pygame.mixer.Sound("resources/keypress.wav")
-    intro = pygame.mixer.SOund("resources/.wav")
-
+    intro = pygame.mixer.Sound("resources/NDvictor.wav")
+    intro.play()
     clock = pygame.time.Clock()
 
 
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     menuImg =   pygame.image.load("resources/menu.png")
     menuImg =   pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
     grampyImg = pygame.image.load("resources/clocky.jpg")
-    grampyImg = pygame.transform.scale(grampyImg, (grampyImg.get_width(), grampyImg.get_height()))
+    grampyImg = pygame.transform.scale(grampyImg, (185, 253))
     #bookImg =   pygame.image.load("resources/book.png")
     #bookImg =   pygame.transform.scale(bookImg, (height))
 
