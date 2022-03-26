@@ -57,5 +57,5 @@ def calcIncome():
     tuition = 60 * FOCUS_GROUPS["students"].performance        #30/month at start on medium
     grants = 40 * FOCUS_GROUPS["faculty"].performance          #20/month at start on medium
     donations = 120 * FOCUS_GROUPS["donors"].performance * FOCUS_GROUPS["donors"].approval     #30/month at start on medium
-    endowment = 0.1 * savings     #20/month at start on medium
-    events = 20         #20/month at start on medium
+    endowment = 0.1 * savings                                  #20/month at start on medium
+    events = 40 * FOCUS_GROUPS["fans"].approval                #20/month at start on medium
