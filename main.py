@@ -41,6 +41,12 @@ optionsImg = pygame.transform.scale(optionsImg, (int(height/6*optionsImg.get_wid
 exitImg = pygame.image.load("resources/exit.png")
 exitImg = pygame.transform.scale(exitImg, (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)))
 
+playImgHovered = pygame.image.load("resources/playHovered.png")
+playImgHovered = pygame.transform.scale(playImg, (int(height/6*playImg.get_width()/playImg.get_height()), int(height/6)))
+optionsImgHovered = pygame.image.load("resources/optionsHovered.png")
+optionsImgHovered = pygame.transform.scale(optionsImg, (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)))
+exitImgHovered = pygame.image.load("resources/exitHovered.png")
+exitImg = pygame.transform.scale(exitImg, (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)))
 
 menuSprites =  [guiClasses.sprite(menuBgImg,  (0,0),                    (width, height),                                                               "menuBgImg"),
                 guiClasses.sprite(playImg,    (1*width/2, 2*height/12), (int(height/6*playImg.get_width()/playImg.get_height()), int(height/6)),       "playImg"),
@@ -52,7 +58,7 @@ mapImg = pygame.transform.scale(mapImg, (width, height))
 backImg = pygame.image.load("resources/back.png")
 backImg = pygame.transform.scale(backImg, (int(width/12), int(height/12)))
 
-mapSprites =   [guiClasses.sprite(mapImg,  (0, 0),                              (width, height),                "mapImg"),
+mapSprites =   [guiClasses.sprite(mapImg,  (0, 0), (width, height),                "mapImg"),
                 guiClasses.sprite(backImg, (0, 0), (int(width/12), int(width/12)), "backImg")]
 
 clickedSprites = []
@@ -103,6 +109,19 @@ while gameState:
                 gameState = 5
             elif item == "exitImg":
                 gameState = 0
+        for item in hoveredSprites:
+            if item == "playImg":
+                pass
+            else:
+                pass
+            if item == "optionsImg":
+                pass
+            else:
+                pass
+            if item == "exitImg":
+                pass
+            else:
+                pass
 
     elif gameState == 3: #Main office scene
         for item in clickedSprites:
