@@ -1,6 +1,10 @@
 
 from classes import FocusGroup, Choice, Event, Request, Costs
 
+####Helper Functions####
+def modSustainability(var):
+    vars["sustainability"] += var
+
 FOCUS_GROUPS = {
     "students": FocusGroup("exit.png", 0.5, 0.5),
     "faculty": FocusGroup("exit.png", 0.5, 0.5),
@@ -81,9 +85,6 @@ randomEvents = [
     )
 ]
 
-####Helper Functions####
-def modSustainability(var):
-    vars["sustainability"] += var
 
 # maybe need to import the classes here
 # RANDOM_EVENTS = [
