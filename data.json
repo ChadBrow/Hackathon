@@ -10,7 +10,7 @@
                 "body": "example",
                 "effects": [
                     {
-                        ""
+                        "function": "students.modAppro"
                 }
             ]
             }
