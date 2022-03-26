@@ -1,5 +1,5 @@
 import pygame
-from main import width
+width = 540
 
 class FocusGroup: # are we just calling this the money too (where "performance" is "willingness to donate")
     def __init__(self, image, startApproval = 0, startPerformance = 0):
