@@ -128,33 +128,35 @@ def calcIncome():
 
 #################### GAME ######################
 if __name__ == "__main__":
+
     window = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Our Dame")
     gameIcon = pygame.image.load("resources/deskJonkers.gif")
     pygame.display.set_icon(gameIcon)
 
     keyPress = pygame.mixer.Sound("resources/keypress.wav")
+    intro = pygame.mixer.SOund("resources/.wav")
 
     clock = pygame.time.Clock()
 
 
     #We should define a sprite class and all the types of stuff we have on the screen are subclasses of sprite
-    officeImg = pygame.image.load("resources/desk.jpg")
+    officeImg = pygame.image.load("resources/johnjonkinsathisdest.jpg")
     officeImg = pygame.transform.scale(officeImg, (width, height))
     menuImg =   pygame.image.load("resources/menu.png")
     menuImg =   pygame.transform.scale(menuImg, (int(width/12), int(width/12)))
-    grampyImg = pygame.image.load("resources/grampyclock.png")
-    grampyImg = pygame.transform.scale(grampyImg, (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2))
+    grampyImg = pygame.image.load("resources/clocky.jpg")
+    grampyImg = pygame.transform.scale(grampyImg, (grampyImg.get_width(), grampyImg.get_height()))
     #bookImg =   pygame.image.load("resources/book.png")
     #bookImg =   pygame.transform.scale(bookImg, (height))
 
-    #window.blit(text, textRect)
+
 
     mainGameSprites =  [guiClasses.sprite(officeImg, (0, 0),                             (width, height),                                                     "officeImg"),
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
                         #Desk junk
-                        guiClasses.sprite(grampyImg, (width - grampyImg.get_width(), 0), (height//2*grampyImg.get_width()//grampyImg.get_height(), height//2), "grampyImg")
+                        guiClasses.sprite(grampyImg, (1270,160), (grampyImg.get_width(), grampyImg.get_height()), "grampyImg")
                         #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
