@@ -1,10 +1,10 @@
 import classes as c
 
 FOCUS_GROUPS = {
-    "students": c.FocusGroup(0.5, 0.5),
-    "faculty": c.FocusGroup(0.5, 0.5),
-    "donors": c.FocusGroup(0.5, 0.5),
-    "fans": c.FocusGroup(0.5, 0.5)
+    "students": c.FocusGroup("exit.png", 0.5, 0.5),
+    "faculty": c.FocusGroup("exit.png", 0.5, 0.5),
+    "donors": c.FocusGroup("exit.png", 0.5, 0.5),
+    "fans": c.FocusGroup("exit.png", 0.5, 0.5)
 }
 
 costs = c.Costs(25, 30, 10, 15, 20) #monthly costs not yearly. Based off yearly cost data Jack found online

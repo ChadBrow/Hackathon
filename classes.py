@@ -1,5 +1,6 @@
 class FocusGroup: # are we just calling this the money too (where "performance" is "willingness to donate")
-    def __init__(self, startApproval = 0, startPerformance = 0):
+    def __init__(self, image, startApproval = 0, startPerformance = 0):
+        self.image = image
         self.approval = startApproval
         self.performance = startPerformance
         self.approvalTarget = startApproval
