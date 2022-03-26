@@ -71,9 +71,9 @@ sustainabilityProposals = [
     ),
     Request(
         title = "Solar Panel Initiative",
-        body = "Placing ",
-        effects = [],
-        cost = 0
+        body = "Placing solar panels on the roofs of buildings can help reduce Nuestro Madre's carbon footprint. This initiative would have a substantial upfront cost, but its passive maintenance fee would be rather small\nCost: 5M\nEffects:\n  - Increase sustainability by 5%\n  - Increase monthly cost of administration 1M",
+        effects = [[modSustainability, 0.05], [costs.modAdmin, 1]],
+        cost = 5
     )
 ]
 
