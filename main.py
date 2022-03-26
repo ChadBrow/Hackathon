@@ -195,6 +195,9 @@ if __name__ == "__main__":
     # choice page images (aka. Blake is sick and tired of this)
 
     choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
+    choiceImgDimensions = [
+        [(0, 0), (width, height * .1)]
+    ]
     choiceImages = []
     for n in choiceImgNames:
         tempImg = pygame.image.load(n[0])
@@ -204,7 +207,7 @@ if __name__ == "__main__":
 
     choiceSprites = []
     for i in range(len(choiceImages)):
-        pass
+        choiceSprites.append(guiClasses.sprite(choiceImages[i], choiceImgDimensions[i][0], choiceImgDimensions[i][1], choiceImgNames[i][1]))
 
     clickedSprites = []
     hoveredSprites = []
