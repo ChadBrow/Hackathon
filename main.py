@@ -186,12 +186,23 @@ if __name__ == "__main__":
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
     gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
 
+
+
+
+    ################# Blake doing dumb stuff #################
+
+
+
+
+
     # choice page images (aka. Blake is sick and tired of this)
     border = .005
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
     sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
     sectionHeight = height * .30
     focusGroupNames = [i for i in FOCUS_GROUPS]
+
+
 
     # I hate this
     choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]] #["resources/text_piece.png", "text box"], ["resources/bottom_menu_background.png", "bottom menu"]]
@@ -204,7 +215,31 @@ if __name__ == "__main__":
     textBackgrounds = [
         pygame.image.load("resources/text_piece2.png"), pygame.image.load("resources/bottom_menu_background2.png")
     ]
-# and you have to write a program to replace colors in the file :D
+    profileImages = [
+        pygame.image.load("jack_images/donerpfp.png"), pygame.image.load("jack_images/facultypfp.png"), pygame.image.load("jack_images/fanpfp.png"), pygame.image.load("jack_images/studentpfp.png")
+    ]
+    # need to do the transforms for the profile images
+
+    """
+    This is such a pain
+
+    How do you scale but conserve the 3:2 ratio
+    - just scale for one axis
+    - Im an idiot and its 6:35
+    - wtf
+    - Im going to bed soon - I dont care that it only kinda works
+    - ok just kidding... it doesnt work because the choices are never displayed (I didnt get there)
+
+    - honestly, could pump out a text-only in the morning if absolutely necessary
+
+    then again, it currently IS the morning, so someone else will have to do it, because Blake will be asleep
+    """
+    pfpRatio = profileImages[0].get_size()
+    tempR = (sectionHeight * .9)/pfpRatio[1] # using y axis
+    pfpSize = (pfpRatio[0] * tempR, pfpRatio[1] * tempR)
+    for i in range(len(profileImages)): # ok wait, these transforms need to be 3:2 ratio
+        profileImages[i] = pygame.transform.scale(profileImages[i], pfpSize)
+        
 
     choiceImages = []
     for i in range(len(choiceImgNames)):
@@ -381,6 +416,7 @@ if __name__ == "__main__":
                     midBoxes[0], midBoxes[1]
                 )
                 window.blit(textBackgrounds[0], (tempCoords[0], tempCoords[1])) # alright, these display correctly... hooray
+                
                 #pygame.draw.rect(window, DARK, tempCoords)
                 
                 # its all text
@@ -396,6 +432,7 @@ if __name__ == "__main__":
             sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
             sectionHeight = height * .35
             textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (sectionSize, sectionHeight))
+            
             for i in range(len(FOCUS_GROUPS)): # the background box
                 tempCoords = (
                     (width * border * (i)) + (sectionSize * i), height * .67, 
@@ -403,6 +440,12 @@ if __name__ == "__main__":
                 )
                 #pygame.draw.rect(window, DARK, tempCoords) # draw the background box
                 window.blit(textBackgrounds[1], (tempCoords[0], tempCoords[1])) # also display correctly - still need to fix coloring to make it the real colors (probably going to make a different program)
+                # also need to display the profile pictures
+                pfpCoords = (
+                    tempCoords[0] + (sectionSize*.13), tempCoords[1] + (sectionHeight * 0.12)
+                )
+                pygame.draw.rect(window, OUTLINE, (pfpCoords[0]-5, pfpCoords[1]-5, pfpSize[0]+10, pfpSize[1]+10), 10, 1) # fuck it, the border of the images doesnt have to scale
+                window.blit(profileImages[i], pfpCoords)
 ###################################################################################### YOU ARE EDITING HERE #############################################
                 # draw the status bars
                 performCoords = (
