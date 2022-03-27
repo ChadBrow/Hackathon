@@ -126,8 +126,8 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((1600,900), FULLSCREEN)
-    fullscreen = 1
+    window = pygame.display.set_mode((1600,900))
+    fullscreen = 0
     # get the size of the fullscreen display
     width, height= window.get_size()
 
@@ -234,7 +234,7 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
 
-    gameState = 1 #Technicaly should start with 2
+    gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
