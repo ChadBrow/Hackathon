@@ -1,3 +1,47 @@
+"""
+Dear whoever reads this code next,
+
+I wrote most of these comments between 4am and 7am,
+please make sure they dont consist of 
+'fuck this shit'
+or something similar (or worse)
+
+there were also a bunch of comments that I was using as markers when I was scrolling back and forth (shut up)
+so those can get deleted too
+
+Anyways, here are things I have done:
+- the bottom panel with the various pfp and their status bars
+- the background image for the choices
+- I am going to look at implementing the choices now, but I am going to bed at 7 as a hard stop, so there is what there is
+
+Things I did not do:
+- buttons, fuck buttons
+- make the choices matter
+- make tick work (I dont think you guys already did it)
+- make the game... function
+
+I might have not spent all my time in the best ways possible, sorry
+
+
+If we do this in the future, we need two people working graphics and one working backend
+specifically, we need art sooner than later (even if it is just placeholder stuff)
+because aligning all of it is such a pain whereas it is soooo easy to change colors and stuff after you have the image
+
+Also, we need to learn how to actually use pygame (we got away with hella inefficient code because its turn based)
+
+
+thanks! This project was a lot of fun, and considering that it was our first 24/48 hour coding competition, we did well.
+Good job guys.
+
+A very tired Blake
+
+
+"""
+
+
+
+
+
 import pygame, random
 from pygame.locals import FULLSCREEN
 import guiFunctions, guiClasses
@@ -106,7 +150,7 @@ def calcIncome():
     tuition = 60 * FOCUS_GROUPS["students"].performance        #30/month at start on medium
     grants = 40 * FOCUS_GROUPS["faculty"].performance          #20/month at start on medium
     donations = 120 * FOCUS_GROUPS["donors"].performance * FOCUS_GROUPS["donors"].approval     #30/month at start on medium
-    endowment = 0.1 * varaibles["savings"]                                 #20/month at start on medium
+    endowment = 0.1 * variables["savings"]                                 #20/month at start on medium
     events = 40 * FOCUS_GROUPS["fans"].approval                #20/month at start on medium
 
     return tuition + grants + donations + endowment + events
@@ -150,9 +194,9 @@ if __name__ == "__main__":
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
                         #Desk junk
-                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900), "grampyImg", show = True),
-                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900), "cabinetImg", show = True),
-                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (width*globeImg.get_width()//1600, height*globeImg.get_height()//900), "globeImg", show = True)
+                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (2*width*grampyImg.get_width()//1600, 2*height*grampyImg.get_height()//900), "grampyImg", show = False),
+                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (2*width*cabinetImg.get_width()//1600, 2*height*cabinetImg.get_height()//900), "cabinetImg", show = False),
+                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (2*width*globeImg.get_width()//1600, 2*height*globeImg.get_height()//900), "globeImg", show = False)
                         #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
@@ -186,12 +230,61 @@ if __name__ == "__main__":
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
     gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
 
+
+
+
+    ################# Blake doing dumb stuff #################
+
+
+
+
+
     # choice page images (aka. Blake is sick and tired of this)
+    border = .005
+    requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
+    sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
+    sectionHeight = height * .30
     focusGroupNames = [i for i in FOCUS_GROUPS]
-    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
+
+
+
+    # I hate this
+    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]] #["resources/text_piece.png", "text box"], ["resources/bottom_menu_background.png", "bottom menu"]]
     choiceImgDimensions = [
-        [(0, 0), (width, int(height * .1))]
+        [(0, 0), (width, int(height * .1))],
+        #[((width * (1-(border*2))) / len(requestGroups), height * .5), (((width) * .2), height * .06)],
+        #[((width * border) + (sectionSize), height * .7), 
+        #            (sectionSize, sectionHeight)] # finish porting these over <- ended up not doing this
     ]
+    textBackgrounds = [
+        pygame.image.load("resources/text_piece2.png"), pygame.image.load("resources/bottom_menu_background2.png")
+    ]
+    profileImages = [
+        pygame.image.load("jack_images/donerpfp.png"), pygame.image.load("jack_images/facultypfp.png"), pygame.image.load("jack_images/fanpfp.png"), pygame.image.load("jack_images/studentpfp.png")
+    ]
+    # need to do the transforms for the profile images
+
+    """
+    This is such a pain
+
+    How do you scale but conserve the 3:2 ratio
+    - just scale for one axis
+    - Im an idiot and its 6:35
+    - wtf
+    - Im going to bed soon - I dont care that it only kinda works
+    - ok just kidding... it doesnt work because the choices are never displayed (I didnt get there)
+
+    - honestly, could pump out a text-only in the morning if absolutely necessary
+
+    then again, it currently IS the morning, so someone else will have to do it, because Blake will be asleep
+    """
+    pfpRatio = profileImages[0].get_size()
+    tempR = (sectionHeight * .9)/pfpRatio[1] # using y axis
+    pfpSize = (pfpRatio[0] * tempR, pfpRatio[1] * tempR)
+    for i in range(len(profileImages)): # ok wait, these transforms need to be 3:2 ratio
+        profileImages[i] = pygame.transform.scale(profileImages[i], pfpSize)
+        
+
     choiceImages = []
     for i in range(len(choiceImgNames)):
         tempImg = pygame.image.load(choiceImgNames[i][0])
@@ -225,23 +318,17 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
 
-    gameState = 2 #Technicaly should start with 2
+    gameState = 4 # fuck all of you, I need to test this and I dont want to press menu options #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
-    requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
 
 
     descriptionText = {
-        "officeImg" : "s",
-        "menuImg" : "a",
-        "grampyImg" : "b",
-        "cabinetImg" : "h",
-        "globeImg" : "j",
-        "menuBgImg" : "w",
-        "playImg" : "t",
-        "optionsImg" : "p",
-        "exitImg" : "o",
-        "menu bar" : "rrr",
+        "officeImg" : "",
+        "menuImg" : "Main menu",
+        "grampyImg" : "Next month",
+        "cabinetImg" : "Proposal",
+        "globeImg" : "Sustainability",
         None : ""
     }
 
@@ -254,11 +341,8 @@ if __name__ == "__main__":
         window.fill(bgcolor)
         pos = pygame.mouse.get_pos()
         
-        if len(hoveredSprites):
-            guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 5, pos[1] + 5), "hoverText")
         
-        
-        for event in pygame.event.get():
+        for event in pygame.event.get(): # pygame events make me want to die...
             if event.type == pygame.QUIT:
                 gameState = 0
             elif event.type == pygame.MOUSEBUTTONUP:
@@ -321,17 +405,23 @@ if __name__ == "__main__":
                 elif item == "globeImg":
                     print("globe")
                     #Chad function
+            if len(hoveredSprites):
+                hoverText = guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 70, pos[1] + 20), "hoverText")
+                hoverTextBg = pygame.Surface(hoverText.text.get_size())
+                hoverTextBg.fill((hoverText.bgcolor))
+                hoverTextBg.blit(hoverText.text, (0,0))
+                window.blit(hoverTextBg, hoverText.textRect)
         elif gameState == 4: # playing the game
             
             """
                 Things I need to do
-                    - make images to replace the temp rectangles
+                    - make images to replace the temp rectangles (Started)
                     - link all the shit so approval and performance actually update
-                    - make it look good
+                    - make it look good (haha what?)
                     - should I leave the buttons to anar?
-                        - or should I do it myself
-                    - fix the top menu
-                    - make the art style more closely match the cursed 8-bit theme
+                        - or should I do it myself (doing it myself - maybe)
+                    - fix the top menu (not worth it)
+                    - make the art style more closely match the cursed 8-bit theme (done - need to get actual color pallet that we are using though)
             
             
             """
@@ -353,7 +443,7 @@ if __name__ == "__main__":
                 0 + width * .62, height * .02,
                 ((width*sustainScore) * .2), height * .06 
             )
-            pygame.draw.rect(window, GREEN, sustainCoords)
+            pygame.draw.rect(window, GREEN, sustainCoords) # top sustainability meter
             pygame.draw.rect(window, OUTLINE, (sustainCoords[0], sustainCoords[1], int(sustainCoords[2]/sustainScore), sustainCoords[3]), 5)       
             
 
@@ -363,12 +453,15 @@ if __name__ == "__main__":
                 (width * (1-(border*2))) / len(requestGroups),
                 height * .5
             ]
+            textBackgrounds[0] = pygame.transform.scale(textBackgrounds[0], (midBoxes[0], midBoxes[1]))
             for i in range(len(requestGroups)):
                 tempCoords = (
                     (width * border * (i)) + (midBoxes[0] * i), height * .15,
                     midBoxes[0], midBoxes[1]
                 )
-                pygame.draw.rect(window, DARK, tempCoords)
+                window.blit(textBackgrounds[0], (tempCoords[0], tempCoords[1])) # alright, these display correctly... hooray
+                
+                #pygame.draw.rect(window, DARK, tempCoords)
                 
                 # its all text
                 # display the text here, but I dont wanna right now
@@ -378,29 +471,37 @@ if __name__ == "__main__":
             """
             (.05 * )
 
-
+            why weren't we just writing images like this all along - out of all the "incorrect" ways of doing it, this is by far the easiest to write and use
             """
             sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
-            sectionHeight = height * .30
+            sectionHeight = height * .35
+            textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (sectionSize, sectionHeight))
+            
             for i in range(len(FOCUS_GROUPS)): # the background box
                 tempCoords = (
-                    (width * border * (i)) + (sectionSize * i), height * .7, 
+                    (width * border * (i)) + (sectionSize * i), height * .67, 
                     sectionSize, sectionHeight
                 )
-                pygame.draw.rect(window, DARK, tempCoords) # draw the background box
-
+                #pygame.draw.rect(window, DARK, tempCoords) # draw the background box
+                window.blit(textBackgrounds[1], (tempCoords[0], tempCoords[1])) # also display correctly - still need to fix coloring to make it the real colors (probably going to make a different program)
+                # also need to display the profile pictures
+                pfpCoords = (
+                    tempCoords[0] + (sectionSize*.13), tempCoords[1] + (sectionHeight * 0.12)
+                )
+                pygame.draw.rect(window, OUTLINE, (pfpCoords[0]-5, pfpCoords[1]-5, pfpSize[0]+10, pfpSize[1]+10), 10, 1) # fuck it, the border of the images doesnt have to scale
+                window.blit(profileImages[i], pfpCoords)
                 # draw the status bars
                 performCoords = (
-                    tempCoords[0] + (sectionSize * .85), 
-                    tempCoords[1] + (sectionHeight * .2),
-                    sectionSize * .1,
-                    sectionHeight * .6
+                    tempCoords[0] + (sectionSize * .76), 
+                    tempCoords[1] + (sectionHeight * .25),
+                    sectionSize * .15,
+                    sectionHeight * .655
                 )
                 approveCoords = (
-                    tempCoords[0] + (sectionSize * .7), 
-                    tempCoords[1] + (sectionHeight * .2),
-                    sectionSize * .1,
-                    sectionHeight * .6
+                    tempCoords[0] + (sectionSize * .605), 
+                    tempCoords[1] + (sectionHeight * .25),
+                    sectionSize * .15,
+                    sectionHeight * .655
                 )
                 #tempPerform = FOCUS_GROUPS[focusGroupNames[i]].performance
                 tempPerform = 20
@@ -427,3 +528,4 @@ if __name__ == "__main__":
         pygame.display.update()
         clock.tick(fps) #Set FPS
     pygame.quit()
+quit()
