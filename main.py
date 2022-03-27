@@ -112,6 +112,7 @@ if __name__ == "__main__":
 
     window = pygame.display.set_mode((width, height), FULLSCREEN)
     width, height = window.get_size()
+    fullscreen = 1
     # window = pygame.display.set_mode((width, height))
     # get the size of the fullscreen display
 
@@ -375,7 +376,7 @@ if __name__ == "__main__":
                 (width * (1-(border*2))) / len(requestGroups),
                 height * .5
             ]
-            textBackgrounds[0] = pygame.transform.scale(textBackgrounds[0], (midBoxes[0], midBoxes[1]))
+            textBackgrounds[0] = pygame.transform.scale(textBackgrounds[0], (int(midBoxes[0]), int(midBoxes[1])))
             for i in range(len(requestGroups)):
                 tempCoords = (
                     (width * border * (i)) + (midBoxes[0] * i), height * .15,
@@ -389,7 +390,7 @@ if __name__ == "__main__":
 
             sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
             sectionHeight = height * .35
-            textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (sectionSize, sectionHeight))
+            textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (int(sectionSize), int(sectionHeight)))
             
             for i in range(len(FOCUS_GROUPS)): # the background box
                 tempCoords = (
