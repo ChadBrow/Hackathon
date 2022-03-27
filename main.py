@@ -195,7 +195,7 @@ if __name__ == "__main__":
     # game over sprites and images
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
-    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), bgcolor=(255, 0, 0), name = "gameOverText")]
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
 
