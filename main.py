@@ -196,7 +196,7 @@ if __name__ == "__main__":
     gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(height / 2)), bgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
-
+    focusGroupNames = [i for i in FOCUS_GROUPS]
     choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
     choiceImgDimensions = [
         [(0, 0), (width, int(height * .1))]
@@ -234,7 +234,7 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
 
-    gameState = 2 #Technicaly should start with 2
+    gameState = 4 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
@@ -315,14 +315,16 @@ if __name__ == "__main__":
             )
             #   pygame.draw.rect(window, DARK, bannerCoords)
 
-            t = "$" + str(mainStats['budget']) # useless
-            headerText = font.render(t, True, textColor)   
+            #t = "$" + str(mainStats['budget']) # useless
+            #headerText = font.render(t, True, textColor)   
             sustainScore = .5 # between zero and one
             sustainCoords = ( # x, y, width, height
-                0 + width * .01, 0 + height * .01,
-                ((width*sustainScore) * .09), height/20 
-            )       
+                0 + width * .62, height * .02,
+                ((width*sustainScore) * .2), height * .06 
+            )
             pygame.draw.rect(window, GREEN, sustainCoords)
+            pygame.draw.rect(window, OUTLINE, (sustainCoords[0], sustainCoords[1], int(sustainCoords[2]/sustainScore), sustainCoords[3]), 5)       
+            
 
             ### Middle boxes for choices
 
@@ -357,21 +359,33 @@ if __name__ == "__main__":
                 pygame.draw.rect(window, DARK, tempCoords) # draw the background box
 
                 # draw the status bars
-                barCoords = (
-                    tempCoords[0] + (sectionSize * .8), 
+                performCoords = (
+                    tempCoords[0] + (sectionSize * .85), 
                     tempCoords[1] + (sectionHeight * .2),
                     sectionSize * .1,
                     sectionHeight * .6
                 )
-                pygame.draw.rect(window, GREEN, barCoords)
-                pygame.draw.rect(window, OUTLINE, barCoords, 10)
+                approveCoords = (
+                    tempCoords[0] + (sectionSize * .7), 
+                    tempCoords[1] + (sectionHeight * .2),
+                    sectionSize * .1,
+                    sectionHeight * .6
+                )
+                #tempPerform = FOCUS_GROUPS[focusGroupNames[i]].performance
+                tempPerform = 20
+                tempApprove = FOCUS_GROUPS[focusGroupNames[i]].approval
+                pygame.draw.rect(window, GREEN, (performCoords[0], performCoords[1] + tempPerform, performCoords[2], performCoords[3] - tempPerform))
+                pygame.draw.rect(window, OUTLINE, performCoords, 5)
+
+                pygame.draw.rect(window, GREEN, (approveCoords[0], approveCoords[1] + tempApprove, approveCoords[2], approveCoords[3] - tempApprove))
+                pygame.draw.rect(window, OUTLINE, approveCoords, 5)
 
 
 
-            
+            """
             for group in FOCUS_GROUPS:
                 FOCUS_GROUPS[group]
-
+            """
 
             pass
         elif gameState == 5: #Options scene
