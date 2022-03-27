@@ -24,8 +24,8 @@ bgcolor = (12, 23, 40) #blue
 bgcolorHovered = (6, 12, 20) #darker blue
 fgcolor = (201, 97, 0) #gold
 
-width = 1600
-height = 900
+width = 800
+height = 450
 
 tuition = 1000 # just a random constant.
 eventChance = 50 # number between 1 and 100
@@ -240,9 +240,34 @@ if __name__ == "__main__":
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
+
+
+    descriptionText = {
+        "officeImg" : "s",
+        "menuImg" : "a",
+        "grampyImg" : "b",
+        "cabinetImg" : "h",
+        "globeImg" : "j",
+        "menuBgImg" : "w",
+        "playImg" : "t",
+        "optionsImg" : "p",
+        "exitImg" : "o",
+        None : ""
+    }
+
+
+
+
+
+
     while gameState:
         window.fill(bgcolor)
         pos = pygame.mouse.get_pos()
+        
+        
+        guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 5, pos[1] + 5), "hoverText")
+        
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameState = 0
@@ -281,7 +306,7 @@ if __name__ == "__main__":
                         window = pygame.display.set_mode((width, height))
                         fullscreen = 0
                     else:
-                        window = pygame.display.set_mode(window.get_size(), FULLSCREEN)
+                        window = pygame.display.set_mode((pygame.display.Info().current_w, pygame.display.Info().current_h), FULLSCREEN)
                         fullscreen = 1
                 elif item == "exitImg":
                     gameState = 0
