@@ -193,7 +193,7 @@ if __name__ == "__main__":
     # game over sprites and images
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
-    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(6 * width / 10), int(6 * height / 10)), (int(width / 10), int(height / 10)), bgcolor=(255, 0, 0), name = "gameOverText")]
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(height / 2)), bgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
 
@@ -234,7 +234,7 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
 
-    gameState = 1 #Technicaly should start with 2
+    gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
