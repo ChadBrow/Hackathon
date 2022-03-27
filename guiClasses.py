@@ -1,16 +1,13 @@
 from ctypes import sizeof
 import pygame
 class sprite:
-    def __init__(self, image, position, size, name = None, show = True):
+    def __init__(self, image, position, size, name = None, show = True, func = None):
         self.image = image
         self.position = position
         self.size = size
         self.name = name
         self.show = show
-
-
-        
-        
+        self.func = func
         self.approval = False
 
 
