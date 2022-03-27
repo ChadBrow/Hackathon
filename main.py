@@ -206,7 +206,7 @@ if __name__ == "__main__":
 
     pfpRatio = profileImages[0].get_size()
     tempR = (sectionHeight * .9)/pfpRatio[1] # using y axis
-    pfpSize = (pfpRatio[0] * tempR, pfpRatio[1] * tempR)
+    pfpSize = (int(pfpRatio[0] * tempR), int(pfpRatio[1] * tempR))
     for i in range(len(profileImages)): # ok wait, these transforms need to be 3:2 ratio
         profileImages[i] = pygame.transform.scale(profileImages[i], pfpSize)
         
