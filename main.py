@@ -313,6 +313,20 @@ if __name__ == "__main__":
                     print("globe")
                     #Chad function
         elif gameState == 4: # playing the game
+            
+            """
+                Things I need to do
+                    - make images to replace the temp rectangles
+                    - link all the shit so approval and performance actually update
+                    - make it look good
+                    - should I leave the buttons to anar?
+                        - or should I do it myself
+                    - fix the top menu
+                    - make the art style more closely match the cursed 8-bit theme
+            
+            
+            """
+        
             # constants
             border = .005
 
