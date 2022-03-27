@@ -303,6 +303,7 @@ if __name__ == "__main__":
         "grampyImg" : "Next month",
         "cabinetImg" : "Proposal",
         "globeImg" : "Sustainability",
+        "menu bar": "Return",
         None : ""
     }
 
@@ -341,7 +342,7 @@ if __name__ == "__main__":
                 window.blit(surface.text, surface.textRect)
         
 
-        print("hovered sprites" + str(hoveredSprites))
+        # print("hovered sprites" + str(hoveredSprites))
 
         if gameState == 1: #Game over screen
             pass
@@ -390,6 +391,13 @@ if __name__ == "__main__":
             for item in clickedSprites:
                 if item == "menu bar":
                     gameState = 3
+            
+            if len(hoveredSprites):
+                hoverText = guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 70, pos[1] + 20), "hoverText")
+                hoverTextBg = pygame.Surface(hoverText.text.get_size())
+                hoverTextBg.fill((hoverText.bgcolor))
+                hoverTextBg.blit(hoverText.text, (0,0))
+                window.blit(hoverTextBg, hoverText.textRect)
             
             # constants
             border = .005
