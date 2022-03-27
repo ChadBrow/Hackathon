@@ -1,5 +1,5 @@
 # this program is used to modify the .pngs I am using so their color schemes are correct (because right now they have a lot of filler-colors)
-
+# kinda proud of this little program
 
 from PIL import Image
 file = "resources/bottom_menu_background"

@@ -1,3 +1,47 @@
+"""
+Dear whoever reads this code next,
+
+I wrote most of these comments between 4am and 7am,
+please make sure they dont consist of 
+'fuck this shit'
+or something similar (or worse)
+
+there were also a bunch of comments that I was using as markers when I was scrolling back and forth (shut up)
+so those can get deleted too
+
+Anyways, here are things I have done:
+- the bottom panel with the various pfp and their status bars
+- the background image for the choices
+- I am going to look at implementing the choices now, but I am going to bed at 7 as a hard stop, so there is what there is
+
+Things I did not do:
+- buttons, fuck buttons
+- make the choices matter
+- make tick work (I dont think you guys already did it)
+- make the game... function
+
+I might have not spent all my time in the best ways possible, sorry
+
+
+If we do this in the future, we need two people working graphics and one working backend
+specifically, we need art sooner than later (even if it is just placeholder stuff)
+because aligning all of it is such a pain whereas it is soooo easy to change colors and stuff after you have the image
+
+Also, we need to learn how to actually use pygame (we got away with hella inefficient code because its turn based)
+
+
+thanks! This project was a lot of fun, and considering that it was our first 24/48 hour coding competition, we did well.
+Good job guys.
+
+A very tired Blake
+
+
+"""
+
+
+
+
+
 import pygame, random
 from pygame.locals import FULLSCREEN
 import guiFunctions, guiClasses
@@ -210,7 +254,7 @@ if __name__ == "__main__":
         [(0, 0), (width, int(height * .1))],
         #[((width * (1-(border*2))) / len(requestGroups), height * .5), (((width) * .2), height * .06)],
         #[((width * border) + (sectionSize), height * .7), 
-        #            (sectionSize, sectionHeight)] # finish porting these over
+        #            (sectionSize, sectionHeight)] # finish porting these over <- ended up not doing this
     ]
     textBackgrounds = [
         pygame.image.load("resources/text_piece2.png"), pygame.image.load("resources/bottom_menu_background2.png")
@@ -446,7 +490,6 @@ if __name__ == "__main__":
                 )
                 pygame.draw.rect(window, OUTLINE, (pfpCoords[0]-5, pfpCoords[1]-5, pfpSize[0]+10, pfpSize[1]+10), 10, 1) # fuck it, the border of the images doesnt have to scale
                 window.blit(profileImages[i], pfpCoords)
-###################################################################################### YOU ARE EDITING HERE #############################################
                 # draw the status bars
                 performCoords = (
                     tempCoords[0] + (sectionSize * .76), 
@@ -485,3 +528,4 @@ if __name__ == "__main__":
         pygame.display.update()
         clock.tick(fps) #Set FPS
     pygame.quit()
+quit()
