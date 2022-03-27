@@ -1,46 +1,3 @@
-"""
-Dear whoever reads this code next,
-
-I wrote most of these comments between 4am and 7am,
-please make sure they dont consist of 
-'fuck this shit'
-or something similar (or worse)
-
-there were also a bunch of comments that I was using as markers when I was scrolling back and forth (shut up)
-so those can get deleted too
-
-Anyways, here are things I have done:
-- the bottom panel with the various pfp and their status bars
-- the background image for the choices
-- I am going to look at implementing the choices now, but I am going to bed at 7 as a hard stop, so there is what there is
-
-Things I did not do:
-- buttons, fuck buttons
-- make the choices matter
-- make tick work (I dont think you guys already did it)
-- make the game... function
-
-I might have not spent all my time in the best ways possible, sorry
-
-
-If we do this in the future, we need two people working graphics and one working backend
-specifically, we need art sooner than later (even if it is just placeholder stuff)
-because aligning all of it is such a pain whereas it is soooo easy to change colors and stuff after you have the image
-
-Also, we need to learn how to actually use pygame (we got away with hella inefficient code because its turn based)
-
-
-thanks! This project was a lot of fun, and considering that it was our first 24/48 hour coding competition, we did well.
-Good job guys.
-
-A very tired Blake
-
-
-"""
-
-
-
-
 
 import pygame, random
 from pygame.locals import FULLSCREEN
@@ -48,9 +5,6 @@ import guiClasses
 
 from classes import *
 from data import *
-# from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
-#import classes
-#from backend import chosenEvent # the event object that you receive from backend (will be None until an event is chosen)
 
 ############## PYGAME ##############
 
@@ -59,8 +13,6 @@ fontSize = 16
 
 ############## CONSTANTS ##############
 
-chosenOption = None # the variable that backend.py will look for
-chosenEvent = None
 
 fps = 60
 
@@ -68,7 +20,7 @@ bgcolor = (12, 23, 40) #blue
 bgcolorHovered = (6, 12, 20) #darker blue
 fgcolor = (201, 97, 0) #gold
 
-width = 800
+width = 1000
 height = 450
 
 tuition = 1000 # just a random constant.
@@ -105,7 +57,8 @@ def tick():
     # Update FOCUS_GROUPS
     #Donor approval target is equal to average of the academic level and budget balance
     avgCampusPerformance = (FOCUS_GROUPS["students"].performance + FOCUS_GROUPS["faculty"].performance) / 2
-    targetHappiness = (avgCampusPerformance + 0.5 * balance / 20) / 2
+    economicPerformance = balance / 20 if balance < 20 else 1
+    targetHappiness = (avgCampusPerformance + economicPerformance) / 2
     FOCUS_GROUPS["donors"].modApprovalTarget(targetHappiness - FOCUS_GROUPS["donors"].approvalTarget) 
     FOCUS_GROUPS["donors"].updateApproval()
 
@@ -125,23 +78,20 @@ def tick():
     FOCUS_GROUPS["students"].updatePerformance()
     FOCUS_GROUPS["faculty"].updatePerformance()
 
-    for c in FOCUS_GROUPS:
-        FOCUS_GROUPS[c].update()
-
 
     
-    # check for events
-    chanceOfEvent = random.randint(1, 100)
-    event = None
-    if chanceOfEvent >= eventChance:
-        e = random.randint(0, len(randomEvents)-1)
-        event = randomEvents[e] # pass this event to anar's front-end
-        chosenEvent = pushEvent(event) # placeholder function for passing the event to anar
-    choice = guiChoice() # this is a placeholder for the choice passed back by anar's gui
-    enactEvent(chosenEvent, choice) # this is a placeholder function for however we want to do this
+    # # check for events
+    # chanceOfEvent = random.randint(1, 100)
+    # event = None
+    # if chanceOfEvent >= eventChance:
+    #     e = random.randint(0, len(randomEvents)-1)
+    #     event = randomEvents[e] # pass this event to anar's front-end
+    #     chosenEvent = pushEvent(event) # placeholder function for passing the event to anar
+    # choice = guiChoice() # this is a placeholder for the choice passed back by anar's gui
+    # enactEvent(chosenEvent, choice) # this is a placeholder function for however we want to do this
 
-    # update savings
-    vars["savings"] = vars["savings"] - spentAmmount + calcIncome()
+    # # update savings
+    # vars["savings"] = vars["savings"] - spentAmmount + calcIncome()
 
 def calcIncome():
     #calculates monthly income
@@ -160,8 +110,9 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((width, height))
-    fullscreen = 0
+    window = pygame.display.set_mode((width, height), FULLSCREEN)
+    width, height = window.get_size()
+    # window = pygame.display.set_mode((width, height))
     # get the size of the fullscreen display
 
     pygame.display.set_caption("Our Dame")
@@ -249,7 +200,7 @@ if __name__ == "__main__":
         pygame.image.load("resources/text_piece2.png"), pygame.image.load("resources/bottom_menu_background2.png")
     ]
     profileImages = [
-        pygame.image.load("jack_images/donerpfp.png"), pygame.image.load("jack_images/facultypfp.png"), pygame.image.load("jack_images/fanpfp.png"), pygame.image.load("jack_images/studentpfp.png")
+        pygame.image.load("jack_images/studentpfp.png"), pygame.image.load("jack_images/facultypfp.png"), pygame.image.load("jack_images/donerpfp.png"), pygame.image.load("jack_images/fanpfp.png")
     ]
     # need to do the transforms for the profile images
 
@@ -372,13 +323,11 @@ if __name__ == "__main__":
                 if item == "menuImg":
                     gameState = 2
                 elif item == "grampyImg":
-                    print("ticking")
                     tick()
                 elif item == "cabinetImg":
                     gameState = 4
-                    print("cabinet")
                 elif item == "globeImg":
-                    print("globe")
+                    pass
                     #Chad function
             if len(hoveredSprites):
                 hoverText = guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 70, pos[1] + 20), "hoverText")
@@ -463,18 +412,18 @@ if __name__ == "__main__":
                     sectionHeight * .655
                 )
                 approveCoords = (
-                    tempCoords[0] + (sectionSize * .605), 
+                    tempCoords[0] + (sectionSize * .605),
                     tempCoords[1] + (sectionHeight * .25),
                     sectionSize * .15,
                     sectionHeight * .655
                 )
                 #tempPerform = FOCUS_GROUPS[focusGroupNames[i]].performance
-                tempPerform = 20
+                tempPerform = FOCUS_GROUPS[focusGroupNames[i]].performance
                 tempApprove = FOCUS_GROUPS[focusGroupNames[i]].approval
-                pygame.draw.rect(window, GREEN, (performCoords[0], performCoords[1] + tempPerform, performCoords[2], performCoords[3] - tempPerform))
+                pygame.draw.rect(window, GREEN, (performCoords[0], performCoords[1] + performCoords[3] * (1 - tempPerform), performCoords[2], performCoords[3] - performCoords[3] * (1 - tempPerform)))
                 pygame.draw.rect(window, OUTLINE, performCoords, 5)
 
-                pygame.draw.rect(window, GREEN, (approveCoords[0], approveCoords[1] + tempApprove, approveCoords[2], approveCoords[3] - tempApprove))
+                pygame.draw.rect(window, GREEN, (approveCoords[0], approveCoords[1] + approveCoords[3] * (1 - tempApprove), approveCoords[2], approveCoords[3] - performCoords[3] * (1 - tempApprove)))
                 pygame.draw.rect(window, OUTLINE, approveCoords, 5)
 
 

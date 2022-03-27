@@ -6,10 +6,10 @@ def modSustainability(var):
     vars["sustainability"] += var
 
 FOCUS_GROUPS = {
-    "students": FocusGroup("exit.png", 0.5, 0.5),
-    "faculty": FocusGroup("exit.png", 0.5, 0.5),
-    "donors": FocusGroup("exit.png", 0.5, 0.5),
-    "fans": FocusGroup("exit.png", 0.5, 0.5),
+    "students": FocusGroup("exit.png", 0.5, 0.5, 0.8, 0.8),
+    "faculty": FocusGroup("exit.png", 0.5, 0.5, 0.8, 0.8),
+    "donors": FocusGroup("exit.png", 0.5, 0.5, 0.5, 0.5),
+    "fans": FocusGroup("exit.png", 0.5, 0.5, 0.5, 0.5),
 }
 
 variables = {
