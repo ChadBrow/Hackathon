@@ -46,10 +46,7 @@ def enactEvent(event, choice):
     e = event.choices[choice].effects
     for i in e:
         i[0](i[1]) # I hate how gross this process is. It must be done
-    
-def revenue():
 
-    return 0 # make this something useful
 def pushEvent(event):
     # I dont know how to do this right now, but we need to send this event to anar
     # maybe just have him check for the current event, but still want the placeholder
@@ -114,8 +111,8 @@ def calcIncome():
 
     return tuition + grants + donations + endowment + events
 
-
-
+def playButton():
+    gameState = 3
 
 
 
