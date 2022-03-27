@@ -218,7 +218,7 @@ if __name__ == "__main__":
         choiceImages.append(tempImg)
     
 
-    choiceSprites = []
+    choiceSprites = [guiClasses.text("20",  (width / 20, height/20), (width / 20, height/20), name = "balanceText", fgcolor = (0, 0, 0))]
     for i in range(len(choiceImages)):
         choiceSprites.append(guiClasses.sprite(choiceImages[i], choiceImgDimensions[i][0], choiceImgDimensions[i][1], choiceImgNames[i][1]))
 
