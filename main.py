@@ -363,7 +363,7 @@ if __name__ == "__main__":
                     sectionSize * .1,
                     sectionHeight * .6
                 )
-                pygame.draw.rect(window, GREEN, barCoords)
+                pygame.draw.rect(window, GREEN, barCoords, 5)
                 pass
 
 
