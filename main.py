@@ -207,7 +207,7 @@ if __name__ == "__main__":
 
     pfpRatio = profileImages[0].get_size()
     tempR = (sectionHeight * .9)/pfpRatio[1] # using y axis
-    pfpSize = (int(pfpRatio[0] * tempR), int(pfpRatio[1] * tempR))
+    pfpSize = (pfpRatio[0] * tempR, pfpRatio[1] * tempR)
     for i in range(len(profileImages)): # ok wait, these transforms need to be 3:2 ratio
         profileImages[i] = pygame.transform.scale(profileImages[i], pfpSize)
         
@@ -219,9 +219,12 @@ if __name__ == "__main__":
         choiceImages.append(tempImg)
     
 
-    choiceSprites = [guiClasses.text("20",  (width / 20, height/20), (width / 20, height/20), name = "balanceText", fgcolor = (0, 0, 0))]
+    choiceSprites = []
     for i in range(len(choiceImages)):
         choiceSprites.append(guiClasses.sprite(choiceImages[i], choiceImgDimensions[i][0], choiceImgDimensions[i][1], choiceImgNames[i][1]))
+    
+    choiceSprites.append(guiClasses.text("20",  (width / 9, height/20), (width / 20, height/20), name = "balanceText", fgcolor = (0, 0, 0), fontSize=20))
+    choiceSprites.append(guiClasses.text("20",  (7 * width / 18, height/20), (width / 20, height/20), name = "incomeText", fgcolor = (0, 0, 0), fontSize=20))
 
     clickedSprites = []
     hoveredSprites = []
@@ -256,6 +259,8 @@ if __name__ == "__main__":
         "cabinetImg" : "Proposal",
         "globeImg" : "Sustainability",
         "menu bar": "Return",
+        "balanceText": "Balance",
+        "incomeText": "Income",
         None : ""
     }
 
@@ -376,7 +381,7 @@ if __name__ == "__main__":
                 (width * (1-(border*2))) / len(requestGroups),
                 height * .5
             ]
-            textBackgrounds[0] = pygame.transform.scale(textBackgrounds[0], (int(midBoxes[0]), int(midBoxes[1])))
+            textBackgrounds[0] = pygame.transform.scale(textBackgrounds[0], (midBoxes[0], midBoxes[1]))
             for i in range(len(requestGroups)):
                 tempCoords = (
                     (width * border * (i)) + (midBoxes[0] * i), height * .15,
@@ -390,7 +395,7 @@ if __name__ == "__main__":
 
             sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
             sectionHeight = height * .35
-            textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (int(sectionSize), int(sectionHeight)))
+            textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (sectionSize, sectionHeight))
             
             for i in range(len(FOCUS_GROUPS)): # the background box
                 tempCoords = (
