@@ -195,7 +195,7 @@ if __name__ == "__main__":
     # game over sprites and images
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
-    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(6 * width / 10), int(6 * height / 10)), (int(width / 10), int(height / 10)), bgcolor=(255, 0, 0), name = "gameOverText")]
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(height / 2)), bgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
 
@@ -226,7 +226,7 @@ if __name__ == "__main__":
     textColor = (230, 230, 230) # change this #no
     GREEN = (50, 250, 50) # change this #no
     DARK = (40, 40, 50)
-    
+    OUTLINE = (20, 20, 40)
 
     #Alright, boys pay attention
     #Game state is teeling what scene to load and how the gui will interact with the user.
@@ -317,7 +317,7 @@ if __name__ == "__main__":
             )
             #   pygame.draw.rect(window, DARK, bannerCoords)
 
-            t = "$" + str(mainStats['budget'])
+            t = "$" + str(mainStats['budget']) # useless
             headerText = font.render(t, True, textColor)   
             sustainScore = .5 # between zero and one
             sustainCoords = ( # x, y, width, height
@@ -366,7 +366,7 @@ if __name__ == "__main__":
                     sectionHeight * .6
                 )
                 pygame.draw.rect(window, GREEN, barCoords)
-                pass
+                pygame.draw.rect(window, OUTLINE, barCoords, 10)
 
 
 
