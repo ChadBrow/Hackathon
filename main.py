@@ -106,27 +106,10 @@ def calcIncome():
     tuition = 60 * FOCUS_GROUPS["students"].performance        #30/month at start on medium
     grants = 40 * FOCUS_GROUPS["faculty"].performance          #20/month at start on medium
     donations = 120 * FOCUS_GROUPS["donors"].performance * FOCUS_GROUPS["donors"].approval     #30/month at start on medium
-    endowment = 0.1 * savings                                  #20/month at start on medium
+    endowment = 0.1 * varaibles["savings"]                                 #20/month at start on medium
     events = 40 * FOCUS_GROUPS["fans"].approval                #20/month at start on medium
 
     return tuition + grants + donations + endowment + events
-
-def playButton():
-    gameState = 3
-
-def optionsButton():
-    if fullscreen:
-        window = pygame.display.set_mode((width, height))
-        fullscreen = 0
-    else:
-        window = pygame.display.set_mode(window.get_size(), FULLSCREEN)
-        fullscreen = 1
-
-def exitButton():
-    gameState = 0
-
-
-
 
 
 
@@ -194,14 +177,14 @@ if __name__ == "__main__":
     
 
     menuSprites =  [guiClasses.sprite(menuBgImg,  (0,0),                    (width, height),                                                               "menuBgImg"),
-                    guiClasses.sprite(playImg,    (1*width/2, 2*height/12), (int(height/6*playImg.get_width()/playImg.get_height()), int(height/6)),       "playImg", playButton),
-                    guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg", optionsButton),
-                    guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg", exitButton)]
+                    guiClasses.sprite(playImg,    (1*width/2, 2*height/12), (int(height/6*playImg.get_width()/playImg.get_height()), int(height/6)),       "playImg"),
+                    guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg"),
+                    guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg")]
 
     # game over sprites and images
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
-    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg", exitButton), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
     focusGroupNames = [i for i in FOCUS_GROUPS]
@@ -242,7 +225,7 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
 
-    gameState = 4 #Technicaly should start with 2
+    gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
@@ -258,6 +241,7 @@ if __name__ == "__main__":
         "playImg" : "t",
         "optionsImg" : "p",
         "exitImg" : "o",
+        "menu bar" : "rrr",
         None : ""
     }
 
@@ -270,8 +254,8 @@ if __name__ == "__main__":
         window.fill(bgcolor)
         pos = pygame.mouse.get_pos()
         
-        
-        guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 5, pos[1] + 5), "hoverText")
+        if len(hoveredSprites):
+            guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 5, pos[1] + 5), "hoverText")
         
         
         for event in pygame.event.get():
@@ -282,7 +266,7 @@ if __name__ == "__main__":
                 clickedSprites = []
                 for theSprite in gameVisuals[gameState]:
                     if theSprite.detectCollision(pos):
-                        theSprite.function() #call the appropriate function
+                        clickedSprites.append(theSprite.name) #call the appropriate function
                         keyPress.play()
                 #Do something with the clicked sprites
 
