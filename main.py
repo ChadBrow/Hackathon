@@ -202,7 +202,7 @@ if __name__ == "__main__":
         #            (sectionSize, sectionHeight)] # finish porting these over
     ]
     textBackgrounds = [
-        pygame.image.load("resources/text_piece.png"), pygame.image.load("resources/bottom_menu_background.png")
+        pygame.image.load("resources/text_piece2.png"), pygame.image.load("resources/bottom_menu_background2.png")
     ]
 # and you have to write a program to replace colors in the file :D
 
