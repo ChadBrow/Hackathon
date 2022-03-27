@@ -6,10 +6,10 @@ def modSustainability(var):
     vars["sustainability"] += var
 
 FOCUS_GROUPS = {
-    "students": FocusGroup("exit.png", 0.5, 0.5),
-    "faculty": FocusGroup("exit.png", 0.5, 0.5),
-    "donors": FocusGroup("exit.png", 0.5, 0.5),
-    "fans": FocusGroup("exit.png", 0.5, 0.5),
+    "students": FocusGroup("exit.png", 0.5, 0.5, 0.8, 0.8),
+    "faculty": FocusGroup("exit.png", 0.5, 0.5, 0.8, 0.8),
+    "donors": FocusGroup("exit.png", 0.5, 0.5, 0.5, 0.5),
+    "fans": FocusGroup("exit.png", 0.5, 0.5, 0.5, 0.5),
 }
 
 variables = {
@@ -74,6 +74,12 @@ sustainabilityProposals = [
         body = "Placing solar panels on the roofs of buildings can help reduce Nuestro Madre's carbon footprint. This initiative would have a substantial upfront cost, but its passive maintenance fee would be rather small\nCost: 5M\nEffects:\n  - Increase sustainability by 5%\n  - Increase monthly cost of administration 1M",
         effects = [[modSustainability, 0.05], [costs.modAdmin, 1]],
         cost = 5
+    ),
+    Request(
+        title = "Reusable Bag Initiative",
+        body = "Removing single use bags from campus venders can greatly reduce the total waste produced by the university. This would force visitors to bring their own reusable bags which would be especially inconvenient to visitors.\nCost: 4M\n Effects:\n  - Increase sustainability by 5%\n  - Decrease fan happiness target by 5%",
+        effects = [[modSustainability, 0.05], [FOCUS_GROUPS["fans"].modApprovalTarget, -0.05]],
+        cost = 0
     )
 ]
 

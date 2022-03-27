@@ -1,16 +1,13 @@
 from ctypes import sizeof
 import pygame
 class sprite:
-    def __init__(self, image, position, size, name = None, show = True):
+    def __init__(self, image, position, size, name = None, show = True, func = None):
         self.image = image
         self.position = position
         self.size = size
         self.name = name
         self.show = show
-
-
-        
-        
+        self.func = func
         self.approval = False
 
 
@@ -23,7 +20,7 @@ class sprite:
         return False
 class text(sprite):
     def __init__(self, text, position, size, name = None, fgcolor = (201, 97, 0), bgcolor = (12, 23, 40)):
-        self.font = pygame.font.Font("resources/pressStart2P.ttf", 32)
+        self.font = pygame.font.Font("resources/pressStart2P.ttf", 12)
         self.text = self.font.render(text, bgcolor, fgcolor)
         self.textRect = self.text.get_rect()
         self.textRect.center = (position[0], position[1])

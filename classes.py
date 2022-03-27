@@ -2,11 +2,11 @@ import pygame
 width = 540
 
 class FocusGroup: # are we just calling this the money too (where "performance" is "willingness to donate")
-    def __init__(self, image, startApproval = 0, startPerformance = 0):
+    def __init__(self, image, startApproval = 0, startPerformance = 0, startApprovalTarget = 0, startPerformanceTarget = 0):
         self.approval = startApproval
         self.performance = startPerformance
-        self.approvalTarget = startApproval
-        self.performanceTarget = startPerformance
+        self.approvalTarget = startApprovalTarget
+        self.performanceTarget = startPerformanceTarget
         self.image = pygame.image.load("resources/" + image)
         self.image = pygame.transform.scale(self.image, (width//5, width//5))
     
@@ -44,8 +44,9 @@ class Choice:
 class Event:
     def __init__(self, title, image, body, choices):
         self.title = title
-        self.image = pygame.image.load("resources/" + image)
-        self.image = pygame.transform.scale(self.image, (width//5, width//5))
+        #self.image = pygame.image.load("resources/" + image)
+        self.image = None
+        #self.image = pygame.transform.scale(self.image, (width//5, width//5)) # I understand what was trying to happen here - but the rest of the code is not built to handle it... saying it was "built" might be too kind.
         self.body = body
         self.choices = choices
 
