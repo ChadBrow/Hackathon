@@ -224,7 +224,7 @@ if __name__ == "__main__":
     textColor = (230, 230, 230) # change this #no
     GREEN = (50, 250, 50) # change this #no
     DARK = (40, 40, 50)
-    
+    OUTLINE = (20, 20, 40)
 
     #Alright, boys pay attention
     #Game state is teeling what scene to load and how the gui will interact with the user.
@@ -315,7 +315,7 @@ if __name__ == "__main__":
             )
             #   pygame.draw.rect(window, DARK, bannerCoords)
 
-            t = "$" + str(mainStats['budget'])
+            t = "$" + str(mainStats['budget']) # useless
             headerText = font.render(t, True, textColor)   
             sustainScore = .5 # between zero and one
             sustainCoords = ( # x, y, width, height
@@ -363,8 +363,8 @@ if __name__ == "__main__":
                     sectionSize * .1,
                     sectionHeight * .6
                 )
-                pygame.draw.rect(window, GREEN, barCoords, 5)
-                pass
+                pygame.draw.rect(window, GREEN, barCoords)
+                pygame.draw.rect(window, OUTLINE, barCoords, 10)
 
 
 
