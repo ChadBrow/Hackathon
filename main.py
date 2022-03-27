@@ -106,7 +106,7 @@ def calcIncome():
     tuition = 60 * FOCUS_GROUPS["students"].performance        #30/month at start on medium
     grants = 40 * FOCUS_GROUPS["faculty"].performance          #20/month at start on medium
     donations = 120 * FOCUS_GROUPS["donors"].performance * FOCUS_GROUPS["donors"].approval     #30/month at start on medium
-    endowment = 0.1 * varaibles["savings"]                                 #20/month at start on medium
+    endowment = 0.1 * variables["savings"]                                 #20/month at start on medium
     events = 40 * FOCUS_GROUPS["fans"].approval                #20/month at start on medium
 
     return tuition + grants + donations + endowment + events
@@ -187,11 +187,19 @@ if __name__ == "__main__":
     gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
+    border = .005
+    requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
+
     focusGroupNames = [i for i in FOCUS_GROUPS]
-    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]]
+    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"], ["resources/text_piece.png", "text box"], ["resources/bottom_menu_background.png", "bottom menu"]]
     choiceImgDimensions = [
-        [(0, 0), (width, int(height * .1))]
+        [(0, 0), (width, int(height * .1))],
+        [((width * (1-(border*2))) / len(requestGroups), height * .5), (((width) * .2), height * .06)],
+        [] # finish porting these over
     ]
+
+# and you have to write a program to replace colors in the file :D
+
     choiceImages = []
     for i in range(len(choiceImgNames)):
         tempImg = pygame.image.load(choiceImgNames[i][0])
@@ -227,7 +235,6 @@ if __name__ == "__main__":
 
     gameState = 2 #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
-    requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
 
 
 
@@ -325,7 +332,7 @@ if __name__ == "__main__":
             
             """
                 Things I need to do
-                    - make images to replace the temp rectangles
+                    - make images to replace the temp rectangles (Started)
                     - link all the shit so approval and performance actually update
                     - make it look good
                     - should I leave the buttons to anar?
