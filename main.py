@@ -150,9 +150,9 @@ if __name__ == "__main__":
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
                         #Desk junk
-                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900), "grampyImg", show = True),
-                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900), "cabinetImg", show = True),
-                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (width*globeImg.get_width()//1600, height*globeImg.get_height()//900), "globeImg", show = True)
+                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (2*width*grampyImg.get_width()//1600, 2*height*grampyImg.get_height()//900), "grampyImg", show = False),
+                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (2*width*cabinetImg.get_width()//1600, 2*height*cabinetImg.get_height()//900), "cabinetImg", show = False),
+                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (2*width*globeImg.get_width()//1600, 2*height*globeImg.get_height()//900), "globeImg", show = False)
                         #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
@@ -232,16 +232,11 @@ if __name__ == "__main__":
 
 
     descriptionText = {
-        "officeImg" : "s",
-        "menuImg" : "a",
-        "grampyImg" : "b",
-        "cabinetImg" : "h",
-        "globeImg" : "j",
-        "menuBgImg" : "w",
-        "playImg" : "t",
-        "optionsImg" : "p",
-        "exitImg" : "o",
-        "menu bar" : "rrr",
+        "officeImg" : "",
+        "menuImg" : "Main menu",
+        "grampyImg" : "Next month",
+        "cabinetImg" : "Proposal",
+        "globeImg" : "Sustainability",
         None : ""
     }
 
@@ -253,9 +248,6 @@ if __name__ == "__main__":
     while gameState:
         window.fill(bgcolor)
         pos = pygame.mouse.get_pos()
-        
-        if len(hoveredSprites):
-            guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 5, pos[1] + 5), "hoverText")
         
         
         for event in pygame.event.get():
@@ -321,6 +313,12 @@ if __name__ == "__main__":
                 elif item == "globeImg":
                     print("globe")
                     #Chad function
+            if len(hoveredSprites):
+                hoverText = guiClasses.text(descriptionText[hoveredSprites[-1]], (pos[0] + 70, pos[1] + 20), "hoverText")
+                hoverTextBg = pygame.Surface(hoverText.text.get_size())
+                hoverTextBg.fill((hoverText.bgcolor))
+                hoverTextBg.blit(hoverText.text, (0,0))
+                window.blit(hoverTextBg, hoverText.textRect)
         elif gameState == 4: # playing the game
             
             """
