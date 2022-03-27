@@ -126,8 +126,8 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((1600,900), FULLSCREEN)
-    fullscreen = 1
+    window = pygame.display.set_mode((1600,900))
+    fullscreen = 0
     # get the size of the fullscreen display
     width, height= window.get_size()
 
