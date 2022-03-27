@@ -189,15 +189,21 @@ if __name__ == "__main__":
     # choice page images (aka. Blake is sick and tired of this)
     border = .005
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
-
+    sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
+    sectionHeight = height * .30
     focusGroupNames = [i for i in FOCUS_GROUPS]
-    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"], ["resources/text_piece.png", "text box"], ["resources/bottom_menu_background.png", "bottom menu"]]
+
+    # I hate this
+    choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]] #["resources/text_piece.png", "text box"], ["resources/bottom_menu_background.png", "bottom menu"]]
     choiceImgDimensions = [
         [(0, 0), (width, int(height * .1))],
-        [((width * (1-(border*2))) / len(requestGroups), height * .5), (((width) * .2), height * .06)],
-        [] # finish porting these over
+        #[((width * (1-(border*2))) / len(requestGroups), height * .5), (((width) * .2), height * .06)],
+        #[((width * border) + (sectionSize), height * .7), 
+        #            (sectionSize, sectionHeight)] # finish porting these over
     ]
-
+    textBackgrounds = [
+        pygame.image.load("resources/text_piece.png"), pygame.image.load("resources/bottom_menu_background.png")
+    ]
 # and you have to write a program to replace colors in the file :D
 
     choiceImages = []
@@ -233,7 +239,7 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
 
-    gameState = 2 #Technicaly should start with 2
+    gameState = 4 # fuck all of you, I need to test this and I dont want to press menu options #Technicaly should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
 
 
@@ -257,7 +263,7 @@ if __name__ == "__main__":
         pos = pygame.mouse.get_pos()
         
         
-        for event in pygame.event.get():
+        for event in pygame.event.get(): # pygame events make me want to die...
             if event.type == pygame.QUIT:
                 gameState = 0
             elif event.type == pygame.MOUSEBUTTONUP:
@@ -332,11 +338,11 @@ if __name__ == "__main__":
                 Things I need to do
                     - make images to replace the temp rectangles (Started)
                     - link all the shit so approval and performance actually update
-                    - make it look good
+                    - make it look good (haha what?)
                     - should I leave the buttons to anar?
-                        - or should I do it myself
-                    - fix the top menu
-                    - make the art style more closely match the cursed 8-bit theme
+                        - or should I do it myself (doing it myself - maybe)
+                    - fix the top menu (not worth it)
+                    - make the art style more closely match the cursed 8-bit theme (done - need to get actual color pallet that we are using though)
             
             
             """
@@ -358,7 +364,7 @@ if __name__ == "__main__":
                 0 + width * .62, height * .02,
                 ((width*sustainScore) * .2), height * .06 
             )
-            pygame.draw.rect(window, GREEN, sustainCoords)
+            pygame.draw.rect(window, GREEN, sustainCoords) # top sustainability meter
             pygame.draw.rect(window, OUTLINE, (sustainCoords[0], sustainCoords[1], int(sustainCoords[2]/sustainScore), sustainCoords[3]), 5)       
             
 
@@ -368,12 +374,14 @@ if __name__ == "__main__":
                 (width * (1-(border*2))) / len(requestGroups),
                 height * .5
             ]
+            textBackgrounds[0] = pygame.transform.scale(textBackgrounds[0], (midBoxes[0], midBoxes[1]))
             for i in range(len(requestGroups)):
                 tempCoords = (
                     (width * border * (i)) + (midBoxes[0] * i), height * .15,
                     midBoxes[0], midBoxes[1]
                 )
-                pygame.draw.rect(window, DARK, tempCoords)
+                window.blit(textBackgrounds[0], (tempCoords[0], tempCoords[1])) # alright, these display correctly... hooray
+                #pygame.draw.rect(window, DARK, tempCoords)
                 
                 # its all text
                 # display the text here, but I dont wanna right now
@@ -383,29 +391,31 @@ if __name__ == "__main__":
             """
             (.05 * )
 
-
+            why weren't we just writing images like this all along - out of all the "incorrect" ways of doing it, this is by far the easiest to write and use
             """
             sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
-            sectionHeight = height * .30
+            sectionHeight = height * .35
+            textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (sectionSize, sectionHeight))
             for i in range(len(FOCUS_GROUPS)): # the background box
                 tempCoords = (
-                    (width * border * (i)) + (sectionSize * i), height * .7, 
+                    (width * border * (i)) + (sectionSize * i), height * .67, 
                     sectionSize, sectionHeight
                 )
-                pygame.draw.rect(window, DARK, tempCoords) # draw the background box
-
+                #pygame.draw.rect(window, DARK, tempCoords) # draw the background box
+                window.blit(textBackgrounds[1], (tempCoords[0], tempCoords[1])) # also display correctly - still need to fix coloring to make it the real colors (probably going to make a different program)
+###################################################################################### YOU ARE EDITING HERE #############################################
                 # draw the status bars
                 performCoords = (
-                    tempCoords[0] + (sectionSize * .85), 
-                    tempCoords[1] + (sectionHeight * .2),
-                    sectionSize * .1,
-                    sectionHeight * .6
+                    tempCoords[0] + (sectionSize * .76), 
+                    tempCoords[1] + (sectionHeight * .25),
+                    sectionSize * .15,
+                    sectionHeight * .655
                 )
                 approveCoords = (
-                    tempCoords[0] + (sectionSize * .7), 
-                    tempCoords[1] + (sectionHeight * .2),
-                    sectionSize * .1,
-                    sectionHeight * .6
+                    tempCoords[0] + (sectionSize * .605), 
+                    tempCoords[1] + (sectionHeight * .25),
+                    sectionSize * .15,
+                    sectionHeight * .655
                 )
                 #tempPerform = FOCUS_GROUPS[focusGroupNames[i]].performance
                 tempPerform = 20
