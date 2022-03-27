@@ -24,6 +24,9 @@ bgcolor = (12, 23, 40) #blue
 bgcolorHovered = (6, 12, 20) #darker blue
 fgcolor = (201, 97, 0) #gold
 
+width = 1600
+height = 900
+
 tuition = 1000 # just a random constant.
 eventChance = 50 # number between 1 and 100
 savings = 1000 # total savings
@@ -43,10 +46,7 @@ def enactEvent(event, choice):
     e = event.choices[choice].effects
     for i in e:
         i[0](i[1]) # I hate how gross this process is. It must be done
-    
-def revenue():
 
-    return 0 # make this something useful
 def pushEvent(event):
     # I dont know how to do this right now, but we need to send this event to anar
     # maybe just have him check for the current event, but still want the placeholder
@@ -111,10 +111,19 @@ def calcIncome():
 
     return tuition + grants + donations + endowment + events
 
+def playButton():
+    gameState = 3
 
+def optionsButton():
+    if fullscreen:
+        window = pygame.display.set_mode((width, height))
+        fullscreen = 0
+    else:
+        window = pygame.display.set_mode(window.get_size(), FULLSCREEN)
+        fullscreen = 1
 
-
-
+def exitButton():
+    gameState = 0
 
 
 
@@ -126,10 +135,9 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((1600,900))
+    window = pygame.display.set_mode((width, height))
     fullscreen = 0
     # get the size of the fullscreen display
-    width, height= window.get_size()
 
     pygame.display.set_caption("Our Dame")
     gameIcon = pygame.image.load("resources/globe.jpg")
@@ -159,9 +167,9 @@ if __name__ == "__main__":
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
                         #Desk junk
-                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900), "grampyImg", show = False),
-                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900), "cabinetImg", show = False),
-                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (width*globeImg.get_width()//1600, height*globeImg.get_height()//900), "globeImg", show = False)
+                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900), "grampyImg", show = True),
+                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900), "cabinetImg", show = True),
+                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (width*globeImg.get_width()//1600, height*globeImg.get_height()//900), "globeImg", show = True)
                         #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
@@ -186,14 +194,14 @@ if __name__ == "__main__":
     
 
     menuSprites =  [guiClasses.sprite(menuBgImg,  (0,0),                    (width, height),                                                               "menuBgImg"),
-                    guiClasses.sprite(playImg,    (1*width/2, 2*height/12), (int(height/6*playImg.get_width()/playImg.get_height()), int(height/6)),       "playImg"),
-                    guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg"),
-                    guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg")]
+                    guiClasses.sprite(playImg,    (1*width/2, 2*height/12), (int(height/6*playImg.get_width()/playImg.get_height()), int(height/6)),       "playImg", playButton),
+                    guiClasses.sprite(optionsImg, (1*width/2, 5*height/12), (int(height/6*optionsImg.get_width()/optionsImg.get_height()), int(height/6)), "optionsImg", optionsButton),
+                    guiClasses.sprite(exitImg,    (1*width/2, 8*height/12), (int(height/6*exitImg.get_width()/exitImg.get_height()), int(height/6)),       "exitImg", exitButton)]
 
     # game over sprites and images
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
-    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(height / 2)), bgcolor=(255, 0, 0), name = "gameOverText")]
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg", exitButton), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
     focusGroupNames = [i for i in FOCUS_GROUPS]
@@ -249,7 +257,7 @@ if __name__ == "__main__":
                 clickedSprites = []
                 for theSprite in gameVisuals[gameState]:
                     if theSprite.detectCollision(pos):
-                        clickedSprites.append(theSprite.name)
+                        theSprite.function() #call the appropriate function
                         keyPress.play()
                 #Do something with the clicked sprites
 
@@ -266,7 +274,7 @@ if __name__ == "__main__":
                 window.blit(surface.text, surface.textRect)
         
 
-        print(hoveredSprites)
+        print("hovered sprites" + str(hoveredSprites))
 
         if gameState == 1: #Game over screen
             pass
@@ -279,7 +287,7 @@ if __name__ == "__main__":
                         window = pygame.display.set_mode((width, height))
                         fullscreen = 0
                     else:
-                        window = pygame.display.set_mode((1600,900), FULLSCREEN)
+                        window = pygame.display.set_mode(window.get_size(), FULLSCREEN)
                         fullscreen = 1
                 elif item == "exitImg":
                     gameState = 0
