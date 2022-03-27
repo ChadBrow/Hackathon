@@ -44,7 +44,7 @@ A very tired Blake
 
 import pygame, random
 from pygame.locals import FULLSCREEN
-import guiFunctions, guiClasses
+import guiClasses
 
 from classes import *
 from data import *
@@ -89,11 +89,9 @@ mainStats = {
 def enactEvent(event, choice):
     e = event.choices[choice].effects
     for i in e:
-        i[0](i[1]) # I hate how gross this process is. It must be done
+        i[0](i[1]) # It must be done
 
 def pushEvent(event):
-    # I dont know how to do this right now, but we need to send this event to anar
-    # maybe just have him check for the current event, but still want the placeholder
     return event
     
 def guiChoice():
@@ -231,15 +229,7 @@ if __name__ == "__main__":
     gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(9 * height / 10)), (int(width / 10), int(height / 10)), fgcolor=(255, 0, 0), name = "gameOverText")]
 
 
-
-
-    ################# Blake doing dumb stuff #################
-
-
-
-
-
-    # choice page images (aka. Blake is sick and tired of this)
+    # choice page images
     border = .005
     requestGroups = [studentRequests, facultyRequests, donorRequests, fanRequests]
     sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
@@ -248,7 +238,6 @@ if __name__ == "__main__":
 
 
 
-    # I hate this
     choiceImgNames = [["jack_images/menu bar.jpg", "menu bar"]] #["resources/text_piece.png", "text box"], ["resources/bottom_menu_background.png", "bottom menu"]]
     choiceImgDimensions = [
         [(0, 0), (width, int(height * .1))],
@@ -264,20 +253,6 @@ if __name__ == "__main__":
     ]
     # need to do the transforms for the profile images
 
-    """
-    This is such a pain
-
-    How do you scale but conserve the 3:2 ratio
-    - just scale for one axis
-    - Im an idiot and its 6:35
-    - wtf
-    - Im going to bed soon - I dont care that it only kinda works
-    - ok just kidding... it doesnt work because the choices are never displayed (I didnt get there)
-
-    - honestly, could pump out a text-only in the morning if absolutely necessary
-
-    then again, it currently IS the morning, so someone else will have to do it, because Blake will be asleep
-    """
     pfpRatio = profileImages[0].get_size()
     tempR = (sectionHeight * .9)/pfpRatio[1] # using y axis
     pfpSize = (pfpRatio[0] * tempR, pfpRatio[1] * tempR)
@@ -299,7 +274,6 @@ if __name__ == "__main__":
     clickedSprites = []
     hoveredSprites = []
     
-    ### Pygame is stupid and my head hurt #don't be mean to pygame
 
     font = pygame.font.Font("resources/pressStart2P.ttf", fontSize)
     
@@ -318,7 +292,7 @@ if __name__ == "__main__":
         #3 is main game screen
         #4 is map scene
 
-    gameState = 4 # fuck all of you, I need to test this and I dont want to press menu options #Technicaly should start with 2
+    gameState = 2 #should start with 2
     gameVisuals = [None, gameOverSprites, menuSprites, mainGameSprites, choiceSprites, None]
 
 
@@ -342,7 +316,7 @@ if __name__ == "__main__":
         pos = pygame.mouse.get_pos()
         
         
-        for event in pygame.event.get(): # pygame events make me want to die...
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameState = 0
             elif event.type == pygame.MOUSEBUTTONUP:
@@ -413,19 +387,10 @@ if __name__ == "__main__":
                 window.blit(hoverTextBg, hoverText.textRect)
         elif gameState == 4: # playing the game
             
-            """
-                Things I need to do
-                    - make images to replace the temp rectangles (Started)
-                    - link all the shit so approval and performance actually update
-                    - make it look good (haha what?)
-                    - should I leave the buttons to anar?
-                        - or should I do it myself (doing it myself - maybe)
-                    - fix the top menu (not worth it)
-                    - make the art style more closely match the cursed 8-bit theme (done - need to get actual color pallet that we are using though)
+            for item in clickedSprites:
+                if item == "menu bar":
+                    gameState = 3
             
-            
-            """
-        
             # constants
             border = .005
 
@@ -462,17 +427,9 @@ if __name__ == "__main__":
                 window.blit(textBackgrounds[0], (tempCoords[0], tempCoords[1])) # alright, these display correctly... hooray
                 
                 #pygame.draw.rect(window, DARK, tempCoords)
-                
-                # its all text
-                # display the text here, but I dont wanna right now
 
             ### Bottom info bar with each focus group
 
-            """
-            (.05 * )
-
-            why weren't we just writing images like this all along - out of all the "incorrect" ways of doing it, this is by far the easiest to write and use
-            """
             sectionSize = (width*(1-(border*2)))/len(FOCUS_GROUPS) # side buffer not included
             sectionHeight = height * .35
             textBackgrounds[1] = pygame.transform.scale(textBackgrounds[1], (sectionSize, sectionHeight))
