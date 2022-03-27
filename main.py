@@ -24,6 +24,9 @@ bgcolor = (12, 23, 40) #blue
 bgcolorHovered = (6, 12, 20) #darker blue
 fgcolor = (201, 97, 0) #gold
 
+width = 1600
+height = 900
+
 tuition = 1000 # just a random constant.
 eventChance = 50 # number between 1 and 100
 savings = 1000 # total savings
@@ -126,10 +129,9 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((1600,900))
+    window = pygame.display.set_mode((width, height))
     fullscreen = 0
     # get the size of the fullscreen display
-    width, height= window.get_size()
 
     pygame.display.set_caption("Our Dame")
     gameIcon = pygame.image.load("resources/globe.jpg")
@@ -159,9 +161,9 @@ if __name__ == "__main__":
                         guiClasses.sprite(menuImg,   (0, 0),                             (int(width/12), int(width/12)),                                      "menuImg"),
                         #Top bar info
                         #Desk junk
-                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900), "grampyImg", show = False),
-                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900), "cabinetImg", show = False),
-                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (width*globeImg.get_width()//1600, height*globeImg.get_height()//900), "globeImg", show = False)
+                        guiClasses.sprite(grampyImg, (width*1270//1600,height*160//900), (width*grampyImg.get_width()//1600, height*grampyImg.get_height()//900), "grampyImg", show = True),
+                        guiClasses.sprite(cabinetImg, (width*160//1600, height*180//900), (width*cabinetImg.get_width()//1600, height*cabinetImg.get_height()//900), "cabinetImg", show = True),
+                        guiClasses.sprite(globeImg,   (width*1240//1600, height*500//900), (width*globeImg.get_width()//1600, height*globeImg.get_height()//900), "globeImg", show = True)
                         #guiClasses.sprite()
                         #Proposals
                         #Focus Groups
@@ -266,7 +268,7 @@ if __name__ == "__main__":
                 window.blit(surface.text, surface.textRect)
         
 
-        print(hoveredSprites)
+        print("hovered sprites" + str(hoveredSprites))
 
         if gameState == 1: #Game over screen
             pass
@@ -279,7 +281,7 @@ if __name__ == "__main__":
                         window = pygame.display.set_mode((width, height))
                         fullscreen = 0
                     else:
-                        window = pygame.display.set_mode((1600,900), FULLSCREEN)
+                        window = pygame.display.set_mode(window.get_size(), FULLSCREEN)
                         fullscreen = 1
                 elif item == "exitImg":
                     gameState = 0
