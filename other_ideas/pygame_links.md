@@ -1,0 +1,14 @@
+https://www.pygame.org/docs/ref/draw.html#pygame.draw.rect
+https://www.pygame.org/docs/ref/surface.html
+https://www.pygame.org/docs/ref/surface.html#pygame.Surface.blit
+https://www.pygame.org/docs/ref/surface.html#pygame.Surface.get_buffer
+https://www.pygame.org/docs/ref/bufferproxy.html#pygame.BufferProxy
+https://www.pygame.org/docs/ref/display.html
+https://www.pygame.org/docs/ref/draw.html
+https://www.pygame.org/docs/ref/event.html
+https://www.pygame.org/docs/ref/font.html
+https://www.pygame.org/docs/ref/image.html
+https://www.pygame.org/docs/ref/key.html
+https://www.pygame.org/docs/ref/rect.html
+https://www.pygame.org/docs/ref/surface.html
+https://www.pygame.org/docs/ref/pygame.html
