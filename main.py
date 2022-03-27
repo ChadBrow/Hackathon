@@ -126,8 +126,8 @@ def calcIncome():
 #################### GAME ######################
 if __name__ == "__main__":
 
-    window = pygame.display.set_mode((1600,900), FULLSCREEN)
-    fullscreen = 1
+    window = pygame.display.set_mode((1600,900))
+    fullscreen = 0
     # get the size of the fullscreen display
     width, height= window.get_size()
 
@@ -193,7 +193,7 @@ if __name__ == "__main__":
     # game over sprites and images
     gameOverImg = pygame.image.load("resources/gameOver.jpeg")
     gameOverImg = pygame.transform.scale(gameOverImg, (width, height))
-    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(6 * width / 10), int(6 * height / 10)), (int(width / 10), int(height / 10)), bgcolor=(255, 0, 0), name = "gameOverText")]
+    gameOverSprites = [guiClasses.sprite(gameOverImg, (0, 0), (width, height), "gameOverImg"), guiClasses.text("Game Over", (int(width / 2), int(height / 2)), bgcolor=(255, 0, 0), name = "gameOverText")]
 
     # choice page images (aka. Blake is sick and tired of this)
 
